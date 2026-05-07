@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Search, ChevronLeft, ChevronRight, Users, Filter } from "lucide-react";
 import dataSiswa from "@/data/dataSiswa.json";
 
@@ -34,91 +34,117 @@ export default function DataSiswaPage() {
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-  const handleKelasChange = (v: string) => {
-    setKelas(v);
+  const handleKelasChange = (value: string) => {
+    setKelas(value);
     setPage(1);
   };
 
   return (
-    <div className="pt-20 pb-16 min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
-              <Users size={20} className="text-white" />
-            </div>
+    <div className="page-shell">
+      <div className="page-container">
+        <div className="page-hero soft-grid">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-primary">
-                Data Peserta Didik
-              </h1>
-              <p className="text-text-secondary text-sm">
-                {filtered.length} siswa ditemukan
-              </p>
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">
+                Data Akademik
+              </div>
+              <div className="mb-2 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600">
+                  <Users size={20} className="text-white" />
+                </div>
+                <div>
+                  <h1 className="text-3xl font-bold text-primary sm:text-4xl">
+                    Data Peserta Didik
+                  </h1>
+                  <p className="text-sm text-text-secondary sm:text-base">
+                    Pusat data siswa SDN Kedundung 2 dengan pencarian yang lebih
+                    cepat dan tampilan yang lebih nyaman dibaca.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 sm:max-w-sm">
+              <div className="rounded-2xl bg-white/80 p-4 shadow-sm">
+                <div className="text-xs uppercase tracking-[0.16em] text-text-muted">
+                  Total Tampil
+                </div>
+                <div className="mt-1 text-2xl font-bold text-primary">
+                  {filtered.length}
+                </div>
+              </div>
+              <div className="rounded-2xl bg-white/80 p-4 shadow-sm">
+                <div className="text-xs uppercase tracking-[0.16em] text-text-muted">
+                  Per Halaman
+                </div>
+                <div className="mt-1 text-2xl font-bold text-primary">
+                  {PAGE_SIZE}
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Filters */}
-        <div className="bg-white rounded-2xl border border-border p-4 mb-6 flex flex-col sm:flex-row gap-3">
-          <div className="relative flex-1">
-            <Search
-              size={18}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"
-            />
-            <input
-              type="text"
-              placeholder="Cari nama siswa, orang tua..."
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setPage(1);
-              }}
-              className="w-full pl-10 pr-4 py-2.5 bg-surface-alt rounded-xl text-sm border-0 focus:outline-none focus:ring-2 focus:ring-primary/20"
-            />
-          </div>
-          <div className="relative">
-            <Filter
-              size={16}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"
-            />
-            <select
-              value={kelas}
-              onChange={(e) => handleKelasChange(e.target.value)}
-              className="appearance-none pl-9 pr-8 py-2.5 bg-surface-alt rounded-xl text-sm font-medium text-text-primary border-0 focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer"
-            >
-              {kelasList.map((k) => (
-                <option key={k} value={k}>
-                  {k}
-                </option>
-              ))}
-            </select>
+        <div className="section-card mb-6 p-4 sm:p-5">
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="relative flex-1">
+              <Search
+                size={18}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"
+              />
+              <input
+                type="text"
+                placeholder="Cari nama siswa, orang tua..."
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setPage(1);
+                }}
+                className="w-full rounded-xl bg-surface-alt py-2.5 pl-10 pr-4 text-sm border-0 focus:outline-none focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+            <div className="relative">
+              <Filter
+                size={16}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"
+              />
+              <select
+                value={kelas}
+                onChange={(e) => handleKelasChange(e.target.value)}
+                className="appearance-none cursor-pointer rounded-xl bg-surface-alt py-2.5 pl-9 pr-8 text-sm font-medium text-text-primary border-0 focus:outline-none focus:ring-2 focus:ring-primary/20"
+              >
+                {kelasList.map((k) => (
+                  <option key={k} value={k}>
+                    {k}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
 
-        {/* Table */}
-        <div className="bg-white rounded-2xl border border-border overflow-hidden">
+        <div className="section-card overflow-hidden">
           <div className="table-wrapper">
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-primary text-white">
-                  <th className="px-4 py-3 text-left font-semibold w-12">No</th>
-                  <th className="px-4 py-3 text-left font-semibold min-w-[200px]">
+                  <th className="w-12 px-4 py-3 text-left font-semibold">No</th>
+                  <th className="min-w-[200px] px-4 py-3 text-left font-semibold">
                     Nama
                   </th>
-                  <th className="px-4 py-3 text-center font-semibold w-16">
+                  <th className="w-16 px-4 py-3 text-center font-semibold">
                     L/P
                   </th>
-                  <th className="px-4 py-3 text-left font-semibold w-24">
+                  <th className="w-24 px-4 py-3 text-left font-semibold">
                     Agama
                   </th>
-                  <th className="px-4 py-3 text-left font-semibold min-w-[200px]">
+                  <th className="min-w-[200px] px-4 py-3 text-left font-semibold">
                     Alamat
                   </th>
-                  <th className="px-4 py-3 text-left font-semibold min-w-[180px]">
+                  <th className="min-w-[180px] px-4 py-3 text-left font-semibold">
                     Nama Orang Tua
                   </th>
-                  <th className="px-4 py-3 text-center font-semibold w-24">
+                  <th className="w-24 px-4 py-3 text-center font-semibold">
                     Kelas
                   </th>
                 </tr>
@@ -127,7 +153,7 @@ export default function DataSiswaPage() {
                 {paginated.map((s, i) => (
                   <tr
                     key={s.id}
-                    className="border-b border-border-light hover:bg-surface-alt/50 transition-colors"
+                    className="border-b border-border-light transition-colors hover:bg-surface-alt/50"
                   >
                     <td className="px-4 py-3 text-text-muted">
                       {(page - 1) * PAGE_SIZE + i + 1}
@@ -137,7 +163,7 @@ export default function DataSiswaPage() {
                     </td>
                     <td className="px-4 py-3 text-center">
                       <span
-                        className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold ${
+                        className={`inline-flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ${
                           s.jenisKelamin === "L"
                             ? "bg-blue-50 text-blue-600"
                             : "bg-pink-50 text-pink-600"
@@ -147,15 +173,15 @@ export default function DataSiswaPage() {
                       </span>
                     </td>
                     <td className="px-4 py-3 text-text-secondary">{s.agama}</td>
-                    <td className="px-4 py-3 text-text-secondary text-xs">
+                    <td className="px-4 py-3 text-xs text-text-secondary">
                       {s.alamat}
                     </td>
-                    <td className="px-4 py-3 text-text-secondary text-xs">
+                    <td className="px-4 py-3 text-xs text-text-secondary">
                       <div>{s.namaAyah || "-"}</div>
                       <div className="text-text-muted">{s.namaIbu || "-"}</div>
                     </td>
                     <td className="px-4 py-3 text-center">
-                      <span className="inline-block bg-primary/10 text-primary text-xs font-semibold px-2.5 py-1 rounded-lg">
+                      <span className="inline-block rounded-lg bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">
                         {s.kelas}
                       </span>
                     </td>
@@ -163,10 +189,7 @@ export default function DataSiswaPage() {
                 ))}
                 {paginated.length === 0 && (
                   <tr>
-                    <td
-                      colSpan={7}
-                      className="px-4 py-12 text-center text-text-muted"
-                    >
+                    <td colSpan={7} className="px-4 py-12 text-center text-text-muted">
                       Tidak ada data ditemukan
                     </td>
                   </tr>
@@ -175,39 +198,36 @@ export default function DataSiswaPage() {
             </table>
           </div>
 
-          {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-between px-4 py-3 border-t border-border-light">
+            <div className="flex flex-col gap-3 border-t border-border-light px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
               <span className="text-xs text-text-muted">
                 Halaman {page} dari {totalPages}
               </span>
-              <div className="flex gap-1.5">
+              <div className="flex flex-wrap gap-1.5">
                 <button
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={page === 1}
-                  className="p-2 rounded-lg hover:bg-surface-alt disabled:opacity-30 transition-colors"
+                  className="rounded-lg p-2 transition-colors hover:bg-surface-alt disabled:opacity-30"
                 >
                   <ChevronLeft size={16} />
                 </button>
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                  (p) => (
-                    <button
-                      key={p}
-                      onClick={() => setPage(p)}
-                      className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors ${
-                        p === page
-                          ? "bg-primary text-white"
-                          : "hover:bg-surface-alt text-text-secondary"
-                      }`}
-                    >
-                      {p}
-                    </button>
-                  )
-                )}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                  <button
+                    key={p}
+                    onClick={() => setPage(p)}
+                    className={`h-8 w-8 rounded-lg text-xs font-medium transition-colors ${
+                      p === page
+                        ? "bg-primary text-white"
+                        : "text-text-secondary hover:bg-surface-alt"
+                    }`}
+                  >
+                    {p}
+                  </button>
+                ))}
                 <button
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={page === totalPages}
-                  className="p-2 rounded-lg hover:bg-surface-alt disabled:opacity-30 transition-colors"
+                  className="rounded-lg p-2 transition-colors hover:bg-surface-alt disabled:opacity-30"
                 >
                   <ChevronRight size={16} />
                 </button>

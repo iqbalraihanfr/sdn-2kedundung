@@ -1,32 +1,32 @@
-import { MapPin, Phone, Mail } from "lucide-react";
+import Link from "next/link";
+import { MapPin, Mail, ArrowUpRight } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-primary text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* School Info */}
+    <footer className="relative overflow-hidden bg-primary text-white">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,168,67,0.18),transparent_24%),linear-gradient(180deg,rgba(255,255,255,0.02),transparent)]" />
+      <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center font-bold text-sm">
+            <div className="mb-4 flex items-center gap-2">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 text-sm font-bold">
                 SP
               </div>
               <div>
-                <h3 className="font-bold text-lg">SIPANDA</h3>
-                <p className="text-white/60 text-xs">
+                <h3 className="text-lg font-bold">SIPANDA</h3>
+                <p className="text-xs text-white/60">
                   Sistem Informasi Pendidikan Anak SD
                 </p>
               </div>
             </div>
-            <p className="text-white/70 text-sm leading-relaxed">
+            <p className="text-sm leading-relaxed text-white/70">
               Platform digital untuk pengelolaan data dan informasi pendidikan
               SDN Kedundung 2, Kota Mojokerto.
             </p>
           </div>
 
-          {/* Contact */}
           <div>
-            <h4 className="font-semibold text-secondary mb-4">Kontak</h4>
+            <h4 className="mb-4 font-semibold text-secondary">Kontak</h4>
             <div className="space-y-3">
               <div className="flex items-start gap-2.5 text-sm text-white/70">
                 <MapPin size={16} className="mt-0.5 shrink-0" />
@@ -41,9 +41,8 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-secondary mb-4">Menu</h4>
+            <h4 className="mb-4 font-semibold text-secondary">Menu</h4>
             <div className="grid grid-cols-2 gap-2 text-sm">
               {[
                 { label: "Data Siswa", href: "/data-siswa" },
@@ -51,25 +50,26 @@ export function Footer() {
                 { label: "Daftar Nilai", href: "/daftar-nilai" },
                 { label: "7 KAIH", href: "/gerakan-7kaih" },
                 { label: "Tata Tertib", href: "/tata-tertib" },
-              ].map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  className="text-white/60 hover:text-white transition-colors"
+              ].map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="inline-flex items-center gap-1.5 text-white/60 transition-colors hover:text-white"
                 >
-                  {l.label}
-                </a>
+                  {link.label}
+                  <ArrowUpRight size={14} />
+                </Link>
               ))}
             </div>
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-white/40 text-xs">
-            © {new Date().getFullYear()} SIPANDA — SDN Kedundung 2. Hak Cipta
+        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 sm:flex-row">
+          <p className="text-xs text-white/40">
+            © {new Date().getFullYear()} SIPANDA - SDN Kedundung 2. Hak Cipta
             Dilindungi.
           </p>
-          <p className="text-white/30 text-xs">
+          <p className="text-xs text-white/30">
             Sistem Informasi Pendidikan Anak SD
           </p>
         </div>

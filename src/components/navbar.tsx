@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -36,35 +36,36 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-border"
-          : "bg-primary"
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-white/88 backdrop-blur-xl shadow-lg shadow-slate-900/5 border-b border-white/70" : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+      <div className="mx-auto max-w-7xl px-4 pt-3 sm:px-6 lg:px-8">
+        <div
+          className={`flex h-16 items-center justify-between rounded-2xl px-4 transition-all duration-300 sm:px-5 ${
+            scrolled
+              ? "bg-white/75"
+              : "border border-white/10 bg-primary/82 shadow-lg shadow-primary-dark/20 backdrop-blur-md"
+          }`}
+        >
           <Link href="/" className="flex items-center gap-2.5 group">
             <div
-              className={`w-9 h-9 rounded-lg flex items-center justify-center font-bold text-sm transition-colors ${
-                scrolled
-                  ? "bg-primary text-white"
-                  : "bg-white/20 text-white"
+              className={`flex h-9 w-9 items-center justify-center rounded-lg text-sm font-bold transition-colors ${
+                scrolled ? "bg-primary text-white" : "bg-white/20 text-white"
               }`}
             >
               SP
             </div>
             <div>
               <span
-                className={`font-bold text-base tracking-tight transition-colors ${
+                className={`block text-base font-bold tracking-tight transition-colors ${
                   scrolled ? "text-primary" : "text-white"
                 }`}
               >
                 SIPANDA
               </span>
               <span
-                className={`hidden sm:block text-[10px] leading-tight transition-colors ${
+                className={`hidden text-[10px] leading-tight transition-colors sm:block ${
                   scrolled ? "text-text-secondary" : "text-white/70"
                 }`}
               >
@@ -73,8 +74,7 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden items-center gap-1 lg:flex">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               const Icon = link.icon;
@@ -82,14 +82,14 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200 ${
                     isActive
                       ? scrolled
-                        ? "bg-primary text-white"
+                        ? "bg-primary text-white shadow-md shadow-primary/20"
                         : "bg-white/20 text-white"
                       : scrolled
-                      ? "text-text-secondary hover:text-primary hover:bg-surface-alt"
-                      : "text-white/80 hover:text-white hover:bg-white/10"
+                        ? "text-text-secondary hover:bg-surface-alt hover:text-primary"
+                        : "text-white/80 hover:bg-white/10 hover:text-white"
                   }`}
                 >
                   <Icon size={16} />
@@ -99,13 +99,10 @@ export function Navbar() {
             })}
           </div>
 
-          {/* Mobile Toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`lg:hidden p-2 rounded-lg transition-colors ${
-              scrolled
-                ? "text-primary hover:bg-surface-alt"
-                : "text-white hover:bg-white/10"
+            className={`rounded-lg p-2 transition-colors lg:hidden ${
+              scrolled ? "text-primary hover:bg-surface-alt" : "text-white hover:bg-white/10"
             }`}
             aria-label="Toggle menu"
           >
@@ -114,14 +111,13 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <div
-        className={`lg:hidden overflow-hidden transition-all duration-300 ${
+        className={`overflow-hidden transition-all duration-300 lg:hidden ${
           isOpen ? "max-h-96" : "max-h-0"
         }`}
       >
-        <div className="bg-white border-t border-border shadow-lg">
-          <div className="px-4 py-3 space-y-1">
+        <div className="mx-4 mt-2 rounded-2xl border border-border bg-white shadow-xl sm:mx-6 lg:mx-8">
+          <div className="space-y-1 px-4 py-3">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               const Icon = link.icon;
@@ -130,7 +126,7 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                  className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all ${
                     isActive
                       ? "bg-primary text-white"
                       : "text-text-secondary hover:bg-surface-alt hover:text-primary"
