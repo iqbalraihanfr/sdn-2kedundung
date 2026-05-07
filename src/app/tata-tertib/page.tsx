@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { BookOpen, ChevronDown } from "lucide-react";
-import tataTertibData from "@/data/tataTertib.json";
+import { tataTertibData } from "@/data";
 
 export default function TataTertibPage() {
   const [openId, setOpenId] = useState<number | null>(1);

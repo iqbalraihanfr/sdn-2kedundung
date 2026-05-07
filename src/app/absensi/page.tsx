@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { ClipboardList, Filter } from "lucide-react";
-import dataAbsensi from "@/data/dataAbsensi.json";
+import { dataAbsensi } from "@/data";
 
 export default function AbsensiPage() {
   const [kelas, setKelas] = useState("Kelas 1");

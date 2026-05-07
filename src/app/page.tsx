@@ -1,10 +1,6 @@
 import Link from "next/link";
 import {
   Users,
-  ClipboardList,
-  FileText,
-  Heart,
-  BookOpen,
   ArrowRight,
   Star,
   GraduationCap,
@@ -12,52 +8,7 @@ import {
   Eye,
   ChevronDown,
 } from "lucide-react";
-
-const features = [
-  {
-    icon: Users,
-    title: "Data Peserta Didik",
-    desc: "Data lengkap 175 siswa dari Kelas 1 hingga Kelas 6",
-    href: "/data-siswa",
-    color: "from-blue-500 to-blue-600",
-  },
-  {
-    icon: ClipboardList,
-    title: "Absensi Siswa",
-    desc: "Rekap kehadiran siswa per kelas dan per bulan",
-    href: "/absensi",
-    color: "from-emerald-500 to-emerald-600",
-  },
-  {
-    icon: FileText,
-    title: "Daftar Nilai",
-    desc: "Nilai Ulangan Harian dan Ulangan Akhir Semester",
-    href: "/daftar-nilai",
-    color: "from-violet-500 to-violet-600",
-  },
-  {
-    icon: Heart,
-    title: "Gerakan 7 KAIH",
-    desc: "7 Kebiasaan Anak Indonesia Hebat - Penilaian Karakter",
-    href: "/gerakan-7kaih",
-    color: "from-rose-500 to-rose-600",
-  },
-  {
-    icon: BookOpen,
-    title: "Tata Tertib",
-    desc: "Peraturan dan ketentuan siswa SDN Kedundung 2",
-    href: "/tata-tertib",
-    color: "from-amber-500 to-amber-600",
-  },
-];
-
-const misiPoints = [
-  "Melaksanakan pembelajaran aktif, kreatif, efektif, dan menyenangkan (PAKEM)",
-  "Menumbuhkan budaya membaca dan belajar sepanjang hayat",
-  "Mengembangkan potensi siswa melalui kegiatan ekstrakurikuler",
-  "Membangun karakter siswa melalui pembiasaan nilai-nilai luhur bangsa",
-  "Menjalin kerjasama harmonis antara sekolah, orang tua, dan masyarakat",
-];
+import { homeFeatures, misiPoints } from "@/data";
 
 export default function HomePage() {
   return (
@@ -221,14 +172,14 @@ export default function HomePage() {
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature, i) => {
+            {homeFeatures.map((feature, i) => {
               const Icon = feature.icon;
               return (
                 <Link
                   key={feature.href}
                   href={feature.href}
                   className={`group relative rounded-2xl border border-border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-xl ${
-                    i === features.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""
+                    i === homeFeatures.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""
                   }`}
                 >
                   <div

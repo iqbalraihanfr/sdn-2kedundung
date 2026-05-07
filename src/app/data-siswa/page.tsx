@@ -2,9 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Search, ChevronLeft, ChevronRight, Users, Filter } from "lucide-react";
-import dataSiswa from "@/data/dataSiswa.json";
-
-const PAGE_SIZE = 20;
+import { DATA_SISWA_PAGE_SIZE, dataSiswa } from "@/data";
 
 export default function DataSiswaPage() {
   const [kelas, setKelas] = useState("Semua");
@@ -31,8 +29,11 @@ export default function DataSiswaPage() {
     return data;
   }, [kelas, search]);
 
-  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
-  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const totalPages = Math.ceil(filtered.length / DATA_SISWA_PAGE_SIZE);
+  const paginated = filtered.slice(
+    (page - 1) * DATA_SISWA_PAGE_SIZE,
+    page * DATA_SISWA_PAGE_SIZE
+  );
 
   const handleKelasChange = (value: string) => {
     setKelas(value);
@@ -78,7 +79,7 @@ export default function DataSiswaPage() {
                   Per Halaman
                 </div>
                 <div className="mt-1 text-2xl font-bold text-primary">
-                  {PAGE_SIZE}
+                  {DATA_SISWA_PAGE_SIZE}
                 </div>
               </div>
             </div>
@@ -156,7 +157,7 @@ export default function DataSiswaPage() {
                     className="border-b border-border-light transition-colors hover:bg-surface-alt/50"
                   >
                     <td className="px-4 py-3 text-text-muted">
-                      {(page - 1) * PAGE_SIZE + i + 1}
+                      {(page - 1) * DATA_SISWA_PAGE_SIZE + i + 1}
                     </td>
                     <td className="px-4 py-3 font-medium text-text-primary">
                       {s.nama}

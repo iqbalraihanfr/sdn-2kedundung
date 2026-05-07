@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { FileText, Filter } from "lucide-react";
-import dataNilai from "@/data/dataNilai.json";
+import { dataNilai } from "@/data";
 
 export default function DaftarNilaiPage() {
   const [kelas, setKelas] = useState("Kelas 1");
