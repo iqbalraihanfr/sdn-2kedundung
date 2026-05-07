@@ -1,0 +1,60 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "title": "Kewajiban Siswa",
+      "icon": "📋",
+      "items": [
+        "Hadir di sekolah tepat waktu sebelum pukul 06.45 WIB",
+        "Berpakaian seragam lengkap dan rapi sesuai ketentuan sekolah",
+        "Mengikuti upacara bendera setiap hari Senin dengan tertib",
+        "Mengerjakan tugas dan pekerjaan rumah yang diberikan guru",
+        "Menjaga kebersihan kelas, halaman sekolah, dan lingkungan sekitar",
+        "Bersikap sopan dan santun kepada guru, karyawan, dan sesama siswa",
+        "Membawa perlengkapan belajar yang diperlukan setiap hari",
+        "Mengikuti kegiatan belajar mengajar dengan sungguh-sungguh",
+        "Melaksanakan piket kelas sesuai jadwal yang telah ditentukan",
+        "Membiasakan salam, senyum, sapa, sopan, dan santun (5S)"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Larangan Siswa",
+      "icon": "🚫",
+      "items": [
+        "Membawa dan menggunakan handphone selama jam pelajaran",
+        "Berkelahi atau melakukan tindakan kekerasan terhadap sesama siswa",
+        "Membuang sampah sembarangan di lingkungan sekolah",
+        "Merusak fasilitas dan inventaris sekolah",
+        "Membawa makanan dan minuman ke dalam ruang kelas saat pelajaran",
+        "Meninggalkan kelas tanpa izin guru",
+        "Berkata kasar, kotor, atau tidak sopan",
+        "Mencontek saat ujian atau ulangan",
+        "Membawa benda tajam atau berbahaya ke sekolah",
+        "Mengambil barang milik orang lain tanpa izin"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Sanksi Pelanggaran",
+      "icon": "⚖️",
+      "items": [
+        "Pelanggaran ringan: Teguran lisan oleh guru",
+        "Pelanggaran sedang: Pemanggilan orang tua/wali",
+        "Pelanggaran berat: Skorsing dan pembinaan oleh kepala sekolah",
+        "Pelanggaran berulang: Penanganan bersama komite sekolah dan orang tua"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Penghargaan Siswa Berprestasi",
+      "icon": "🏆",
+      "items": [
+        "Siswa dengan kehadiran terbaik mendapat sertifikat penghargaan",
+        "Siswa berprestasi akademik mendapat piagam dari sekolah",
+        "Siswa teladan dalam sikap dan perilaku mendapat apresiasi khusus",
+        "Kelas terbersih dan tertib mendapat penghargaan mingguan"
+      ]
+    }
+  ]
+}
