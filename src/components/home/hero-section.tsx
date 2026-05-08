@@ -88,7 +88,7 @@ export function HeroSection() {
             ))}
           </div>
 
-          <div className="animate-fade-in-up animate-delay-500 mt-10 opacity-0">
+          <div className="animate-fade-in-up animate-delay-500 mt-10 opacity-0 text-white">
             <a
               href="#visi-misi"
               className="inline-flex flex-col items-center text-white/60 transition-colors hover:text-white"
