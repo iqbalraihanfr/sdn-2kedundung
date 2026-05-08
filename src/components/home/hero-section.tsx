@@ -26,10 +26,10 @@ export function HeroSection() {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-6xl">
-        <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-10 text-center shadow-2xl shadow-primary-dark/25 backdrop-blur-md sm:px-10 sm:py-14">
-          <div className="animate-fade-in-up mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 opacity-0 backdrop-blur-sm">
+        <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-8 text-center shadow-2xl shadow-primary-dark/25 backdrop-blur-md sm:px-10 sm:py-10">
+          <div className="animate-fade-in-up mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 opacity-0 backdrop-blur-sm">
             <Star size={14} className="text-secondary" />
-            <span className="text-sm font-medium text-white/80">
+            <span className="text-sm font-medium text-white">
               SD Negeri Kedundung 2 - Kota Mojokerto
             </span>
           </div>
@@ -43,15 +43,15 @@ export function HeroSection() {
             </span>
           </h1>
 
-          <p className="animate-fade-in-up animate-delay-200 mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/70 opacity-0 sm:text-lg">
+          <p className="animate-fade-in-up animate-delay-200 mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/90 opacity-0 sm:text-lg">
             Platform digital untuk pengelolaan data siswa, absensi, nilai, dan
             pembentukan karakter melalui{" "}
-            <span className="font-medium text-secondary">
+            <span className="font-semibold text-secondary-light">
               Gerakan 7 Kebiasaan Anak Indonesia Hebat
             </span>
           </p>
 
-          <div className="animate-fade-in-up animate-delay-300 mt-10 flex flex-col items-center justify-center gap-4 opacity-0 sm:flex-row">
+          <div className="animate-fade-in-up animate-delay-300 mt-8 flex flex-col items-center justify-center gap-4 opacity-0 sm:flex-row">
             <a
               href="#features"
               className="group flex items-center gap-2 rounded-xl bg-secondary px-6 py-3.5 font-semibold text-primary-dark shadow-lg shadow-secondary/20 transition-all duration-200 hover:bg-secondary-light hover:shadow-xl hover:shadow-secondary/30"
@@ -65,14 +65,14 @@ export function HeroSection() {
             </a>
             <Link
               href="/data-siswa"
-              className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/10 px-6 py-3.5 font-medium text-white transition-all hover:bg-white/20"
+              className="flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-6 py-3.5 font-medium text-white transition-all hover:bg-white/25"
             >
               <Users size={18} />
               Lihat Data Siswa
             </Link>
           </div>
 
-          <div className="animate-fade-in-up animate-delay-400 mx-auto mt-16 grid max-w-lg grid-cols-3 gap-4 opacity-0">
+          <div className="animate-fade-in-up animate-delay-400 mx-auto mt-10 grid max-w-lg grid-cols-3 gap-4 opacity-0">
             {homeStats.map((stat) => (
               <div
                 key={stat.label}
@@ -81,17 +81,17 @@ export function HeroSection() {
                 <div className="text-2xl font-bold text-white sm:text-3xl">
                   {stat.value}
                 </div>
-                <div className="mt-1 text-xs uppercase tracking-wider text-white/40">
+                <div className="mt-1 text-xs font-medium uppercase tracking-wider text-white/70">
                   {stat.label}
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="animate-fade-in-up animate-delay-500 mt-16 opacity-0">
+          <div className="animate-fade-in-up animate-delay-500 mt-10 opacity-0">
             <a
               href="#visi-misi"
-              className="inline-flex flex-col items-center text-white/30 transition-colors hover:text-white/50"
+              className="inline-flex flex-col items-center text-white/60 transition-colors hover:text-white"
             >
               <span className="mb-2 text-xs">Scroll</span>
               <ChevronDown size={20} className="animate-bounce" />

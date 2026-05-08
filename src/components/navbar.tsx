@@ -45,20 +45,20 @@ export function Navbar() {
         <div className="flex h-20 items-center justify-between transition-all duration-300">
           <Link href="/" className="group flex items-center gap-3">
             <div
-              className={`flex h-10 w-10 items-center justify-center rounded-lg text-sm font-bold transition-colors ${scrolled ? "bg-primary text-white" : "bg-white/20 text-white"
+              className={`flex h-10 w-10 items-center justify-center rounded-lg text-sm font-bold transition-colors ${scrolled ? "bg-primary text-white" : "bg-white/20 !text-white"
                 }`}
             >
               SP
             </div>
             <div>
               <span
-                className={`block text-lg font-bold tracking-tight transition-colors ${scrolled ? "text-primary" : "text-white"
+                className={`block text-lg font-bold tracking-tight transition-colors ${scrolled ? "text-primary" : "!text-white"
                   }`}
               >
                 SIPANDA
               </span>
               <span
-                className={`hidden text-xs leading-tight transition-colors sm:block ${scrolled ? "text-text-secondary" : "text-white/80"
+                className={`hidden text-xs leading-tight transition-colors sm:block ${scrolled ? "text-text-secondary" : "!text-white"
                   }`}
               >
                 SDN Kedundung 2
@@ -70,25 +70,28 @@ export function Navbar() {
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               const Icon = link.icon;
+              let linkClass = "group relative flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-[15px] font-semibold transition-all duration-300";
+
+              if (isActive) {
+                linkClass += scrolled
+                  ? " bg-primary !text-white shadow-md shadow-primary/20"
+                  : " bg-white/20 !text-white shadow-sm";
+              } else {
+                linkClass += scrolled
+                  ? " text-text-secondary hover:bg-primary/5 hover:text-primary"
+                  : " !text-white hover:bg-white/20";
+              }
+
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`group relative flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-[15px] font-semibold transition-all duration-300 ${
-                    isActive
-                      ? scrolled
-                        ? "bg-primary text-white shadow-md shadow-primary/20"
-                        : "bg-white/20 text-white shadow-sm"
-                      : scrolled
-                        ? "text-text-secondary hover:bg-primary/5 hover:text-primary"
-                        : "text-white hover:bg-white/20 hover:text-white"
-                  }`}
+                  className={linkClass}
                 >
                   <Icon
                     size={20}
-                    className={`transition-transform duration-300 ${
-                      isActive ? "scale-110" : "group-hover:scale-110"
-                    }`}
+                    className={`transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-110"
+                      }`}
                   />
                   {link.label}
                 </Link>
@@ -98,7 +101,7 @@ export function Navbar() {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`rounded-lg p-2 transition-colors lg:hidden ${scrolled ? "text-primary hover:bg-surface-alt" : "text-white hover:bg-white/10"
+            className={`rounded-lg p-2 transition-colors lg:hidden ${scrolled ? "text-primary hover:bg-surface-alt" : "!text-white hover:bg-white/10"
               }`}
             aria-label="Toggle menu"
           >
@@ -122,7 +125,7 @@ export function Navbar() {
                   href={link.href}
                   onClick={() => setIsOpen(false)}
                   className={`flex items-center gap-3 rounded-xl px-5 py-3.5 text-base font-semibold transition-all ${isActive
-                    ? "bg-primary text-white"
+                    ? "bg-primary !text-white"
                     : "text-text-secondary hover:bg-primary/5 hover:text-primary"
                     }`}
                 >
