@@ -20,6 +20,12 @@ export { dataAbsensi, dataNilai, dataSiswa, tataTertibData };
 
 export const DATA_SISWA_PAGE_SIZE = 20;
 
+export const homeStats = [
+  { label: "Siswa", value: "175" },
+  { label: "Kelas", value: "6" },
+  { label: "Fitur", value: "5" },
+];
+
 export const homeFeatures = [
   {
     icon: Users,
