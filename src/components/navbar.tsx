@@ -12,20 +12,49 @@ import {
   FileText,
   Heart,
   BookOpen,
+  Home,
+  Info,
+  Bell,
+  Phone,
+  ChevronDown,
+  Star,
 } from "lucide-react";
 
-const navLinks = [
-  { href: "/", label: "Beranda", icon: GraduationCap },
-  { href: "/data-siswa", label: "Data Siswa", icon: Users },
-  { href: "/absensi", label: "Absensi", icon: ClipboardList },
-  { href: "/daftar-nilai", label: "Daftar Nilai", icon: FileText },
-  { href: "/gerakan-7kaih", label: "7 KAIH", icon: Heart },
-  { href: "/tata-tertib", label: "Tata Tertib", icon: BookOpen },
+type NavItem = {
+  href?: string;
+  label: string;
+  icon: any;
+  children?: { href: string; label: string; icon: any }[];
+};
+
+const navItems: NavItem[] = [
+  { href: "/", label: "Beranda", icon: Home },
+  { href: "/#visi-misi", label: "Tentang Sekolah", icon: Info },
+  {
+    label: "Akademik",
+    icon: GraduationCap,
+    children: [
+      { href: "/data-siswa", label: "Data Siswa", icon: Users },
+      { href: "/absensi", label: "Absensi", icon: ClipboardList },
+      { href: "/daftar-nilai", label: "Daftar Nilai", icon: FileText },
+    ],
+  },
+  {
+    label: "Program Sekolah",
+    icon: Star,
+    children: [
+      { href: "/gerakan-7kaih", label: "7 KAIH", icon: Heart },
+      { href: "/tata-tertib", label: "Tata Tertib", icon: BookOpen },
+    ],
+  },
+  { href: "/#informasi", label: "Informasi", icon: Bell },
+  { href: "/#kontak", label: "Kontak", icon: Phone },
 ];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({});
   const pathname = usePathname();
 
   useEffect(() => {
@@ -33,6 +62,10 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const toggleDropdown = (label: string) => {
+    setOpenDropdowns((prev) => ({ ...prev, [label]: !prev[label] }));
+  };
 
   return (
     <nav
@@ -66,34 +99,73 @@ export function Navbar() {
             </div>
           </Link>
 
-          <div className="hidden items-center gap-2 lg:flex xl:gap-4">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              const Icon = link.icon;
-              let linkClass = "group relative flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-[15px] font-semibold transition-all duration-300";
+          <div className="hidden items-center gap-1.5 lg:flex xl:gap-3">
+            {navItems.map((item) => {
+              const isActive = item.href
+                ? pathname === item.href
+                : item.children?.some((child) => pathname === child.href);
+              const Icon = item.icon;
+              let itemClass = "group relative flex items-center gap-2 px-3 xl:px-4 py-2.5 rounded-xl text-[14px] xl:text-[15px] font-semibold transition-all duration-300";
 
               if (isActive) {
-                linkClass += scrolled
+                itemClass += scrolled
                   ? " bg-primary !text-white shadow-md shadow-primary/20"
                   : " bg-white/20 !text-white shadow-sm";
               } else {
-                linkClass += scrolled
+                itemClass += scrolled
                   ? " text-text-secondary hover:bg-primary/5 hover:text-primary"
                   : " !text-white hover:bg-white/20";
               }
 
+              if (item.children) {
+                return (
+                  <div key={item.label} className="group/dropdown relative">
+                    <button className={itemClass}>
+                      <Icon
+                        size={18}
+                        className={`transition-transform duration-300 ${isActive ? "scale-110" : "group-hover/dropdown:scale-110"
+                          }`}
+                      />
+                      {item.label}
+                      <ChevronDown size={14} className="transition-transform duration-300 group-hover/dropdown:rotate-180" />
+                    </button>
+                    <div className="absolute left-0 top-full hidden pt-2 group-hover/dropdown:block min-w-[220px]">
+                      <div className="rounded-xl border border-border bg-white p-2 shadow-xl">
+                        {item.children.map((child) => {
+                          const isChildActive = pathname === child.href;
+                          const ChildIcon = child.icon;
+                          return (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className={`flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all ${isChildActive
+                                ? "bg-primary/10 text-primary"
+                                : "text-text-secondary hover:bg-primary/5 hover:text-primary"
+                                }`}
+                            >
+                              <ChildIcon size={18} />
+                              {child.label}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <Link
-                  key={link.href}
-                  href={link.href}
-                  className={linkClass}
+                  key={item.label}
+                  href={item.href!}
+                  className={itemClass}
                 >
                   <Icon
-                    size={20}
+                    size={18}
                     className={`transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-110"
                       }`}
                   />
-                  {link.label}
+                  {item.label}
                 </Link>
               );
             })}
@@ -111,18 +183,64 @@ export function Navbar() {
       </div>
 
       <div
-        className={`overflow-hidden transition-all duration-300 lg:hidden ${isOpen ? "max-h-96" : "max-h-0"
+        className={`overflow-hidden transition-all duration-300 lg:hidden ${isOpen ? "max-h-[80vh] overflow-y-auto" : "max-h-0"
           }`}
       >
-        <div className="mx-4 mt-2 rounded-2xl border border-border bg-white shadow-xl sm:mx-6 lg:mx-8">
+        <div className="mx-4 mt-2 mb-4 rounded-2xl border border-border bg-white shadow-xl sm:mx-6 lg:mx-8">
           <div className="space-y-1 px-4 py-3">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              const Icon = link.icon;
+            {navItems.map((item) => {
+              const isActive = item.href
+                ? pathname === item.href
+                : item.children?.some((child) => pathname === child.href);
+              const Icon = item.icon;
+
+              if (item.children) {
+                const isOpenMobile = openDropdowns[item.label] !== undefined ? openDropdowns[item.label] : isActive;
+                return (
+                  <div key={item.label} className="space-y-1">
+                    <button
+                      onClick={() => toggleDropdown(item.label)}
+                      className={`flex w-full items-center justify-between gap-3 rounded-xl px-5 py-3.5 text-base font-semibold transition-all ${isActive
+                        ? "bg-primary/10 text-primary"
+                        : "text-text-secondary hover:bg-primary/5 hover:text-primary"
+                        }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <Icon size={20} />
+                        {item.label}
+                      </div>
+                      <ChevronDown size={18} className={`transition-transform duration-300 ${isOpenMobile ? "rotate-180" : ""}`} />
+                    </button>
+                    <div className={`space-y-1 overflow-hidden transition-all duration-300 ${isOpenMobile ? "max-h-96" : "max-h-0"}`}>
+                      <div className="ml-8 space-y-1 border-l-2 border-border pl-4 pb-2">
+                        {item.children.map((child) => {
+                          const isChildActive = pathname === child.href;
+                          const ChildIcon = child.icon;
+                          return (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              onClick={() => setIsOpen(false)}
+                              className={`flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all ${isChildActive
+                                ? "bg-primary !text-white"
+                                : "text-text-secondary hover:bg-primary/5 hover:text-primary"
+                                }`}
+                            >
+                              <ChildIcon size={18} />
+                              {child.label}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <Link
-                  key={link.href}
-                  href={link.href}
+                  key={item.label}
+                  href={item.href!}
                   onClick={() => setIsOpen(false)}
                   className={`flex items-center gap-3 rounded-xl px-5 py-3.5 text-base font-semibold transition-all ${isActive
                     ? "bg-primary !text-white"
@@ -130,7 +248,7 @@ export function Navbar() {
                     }`}
                 >
                   <Icon size={20} />
-                  {link.label}
+                  {item.label}
                 </Link>
               );
             })}

@@ -3,7 +3,7 @@ import { MapPin, Mail, ArrowUpRight } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-primary text-white">
+    <footer id="kontak" className="relative overflow-hidden bg-primary text-white">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,168,67,0.18),transparent_24%),linear-gradient(180deg,rgba(255,255,255,0.02),transparent)]" />
       <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
