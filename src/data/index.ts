@@ -65,11 +65,12 @@ export const homeFeatures = [
 ];
 
 export const misiPoints = [
-  "Melaksanakan pembelajaran aktif, kreatif, efektif, dan menyenangkan (PAKEM)",
-  "Menumbuhkan budaya membaca dan belajar sepanjang hayat",
-  "Mengembangkan potensi siswa melalui kegiatan ekstrakurikuler",
-  "Membangun karakter siswa melalui pembiasaan nilai-nilai luhur bangsa",
-  "Menjalin kerjasama harmonis antara sekolah, orang tua, dan masyarakat",
+  "Membangun lingkungan sekolah yang membentuk pendidik dan murid memiliki akhlak mulia melalui rutinitas kegiatan keagamaan dan menerapkan ajaran agama melalui cara berinteraksi di sekolah.",
+  "Merancang pembelajaran yang berkesadaran, bermakna, menarik dan menyenangkan yang mampu memotivasi murid untuk selalu belajar dan menemukan pembelajaran.",
+  "Membangun kepedulian terhadap lingkungan sekolah, bertoleransi dalam kewargaan, mencintai budaya lokal dan menjunjung nilai gotong royong yang terintegrasi dalam pembelajaran.",
+  "Mengembangkan kemandirian, nalar kritis dan kreativitas yang memfasilitasi keragaman minat dan bakat murid.",
+  "Mengembangkan program sekolah yang membentuk ide dan gagasan cepat tanggap terhadap perubahan yang terjadi untuk merancang inovasi.",
+  "Mengembangkan dan memfasilitasi peningkatan prestasi murid sesuai minat dan bakatnya melalui proses pendampingan dan kerja sama dengan orang tua.",
 ];
 
 export const kebiasaan7Kaih = [

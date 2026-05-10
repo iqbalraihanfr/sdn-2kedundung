@@ -24,9 +24,8 @@ export function VisiMisiSection() {
               </div>
               <h3 className="mb-4 text-xl font-bold">Visi</h3>
               <p className="text-lg font-medium leading-relaxed text-white/90">
-                &ldquo;Meneladani Kearifan Lokal dengan Membumikan Budaya
-                Sekolah untuk Mewujudkan Peserta Didik yang Beriman, Berilmu,
-                Berkarakter, dan Berprestasi&rdquo;
+                &ldquo;Terwujudnya murid yang berkarakter sebagai pembelajar
+                sepanjang hayat yang peduli lingkungan, inovatif, dan berprestasi.&rdquo;
               </p>
             </div>
           </div>
