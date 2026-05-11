@@ -24,7 +24,13 @@ export function DaftarNilaiContent() {
   const filtered = useMemo(() => {
     let data = dataNilai.filter((n) => n.kelas === kelas);
     if (mapel !== "Semua") data = data.filter((n) => n.mapel === mapel);
-    return data;
+    
+    // Sort by name, then by mapel
+    return data.sort((a, b) => {
+      const nameComp = a.nama.localeCompare(b.nama);
+      if (nameComp !== 0) return nameComp;
+      return a.mapel.localeCompare(b.mapel);
+    });
   }, [kelas, mapel]);
 
   return (
