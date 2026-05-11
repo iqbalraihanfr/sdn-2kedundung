@@ -5,7 +5,7 @@ import { homeFeatures } from "@/data";
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="bg-transparent py-20">
+    <section id="features" className="bg-transparent pt-20 pb-10">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mb-14 text-center">
           <span className="mb-3 inline-block rounded-full bg-secondary/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-secondary">

@@ -70,8 +70,10 @@ export function Navbar() {
   return (
     <nav
       className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${scrolled
-        ? "border-b border-border/50 bg-white/90 shadow-sm backdrop-blur-xl"
-        : "border-b border-white/10 bg-primary/90 backdrop-blur-md"
+        ? "bg-white/90 shadow-sm backdrop-blur-xl"
+        : pathname === "/"
+          ? "bg-transparent"
+          : "bg-primary/90 backdrop-blur-md"
         }`}
     >
       <div className="w-full px-6 sm:px-8 lg:px-14 xl:px-24">
