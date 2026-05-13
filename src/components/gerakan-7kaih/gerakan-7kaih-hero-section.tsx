@@ -1,8 +1,26 @@
 import { Heart } from "lucide-react";
+import Image from "next/image";
 
 export function Gerakan7KaihHeroSection() {
   return (
-    <section className="relative overflow-hidden rounded-b-[3rem] bg-gradient-to-br from-primary via-primary-dark to-primary py-24 shadow-xl">
+    <section
+      data-transparent-navbar
+      className="relative overflow-hidden rounded-b-[3rem] pt-32 pb-24 shadow-xl"
+    >
+      {/* Background Image & Overlay */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/7kaih-hero.jpg"
+          alt="Gerakan 7 KAIH"
+          fill
+          className="object-cover"
+          priority
+        />
+        {/* Overlay Layers */}
+        <div className="absolute inset-0 bg-primary/70 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-primary/40" />
+      </div>
+
       <div className="absolute inset-0">
         <div className="absolute right-20 top-10 h-64 w-64 rounded-full bg-secondary/10 blur-3xl" />
         <div className="absolute bottom-10 left-20 h-80 w-80 rounded-full bg-rose-400/10 blur-3xl" />

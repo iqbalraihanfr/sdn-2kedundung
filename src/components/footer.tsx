@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { MapPin, Mail, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import { MapPin, Mail, ArrowUpRight, Phone } from "lucide-react";
 
 export function Footer() {
   return (
@@ -9,9 +10,14 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
           {/* Column 1: Brand */}
           <div>
-            <div className="mb-6 flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 text-sm font-bold">
-                SP
+            <div className="mb-6 flex items-center gap-3">
+              <div className="relative h-16 w-16 overflow-hidden">
+                <Image
+                  src="/images/logo-sdn2kedundung.png"
+                  alt="Logo SDN Kedundung 2"
+                  fill
+                  className="object-contain"
+                />
               </div>
               <div>
                 <h3 className="text-lg font-bold">SIPANDA</h3>
@@ -26,7 +32,11 @@ export function Footer() {
             <div className="space-y-3">
               <div className="flex items-center gap-2.5 text-sm text-white/70">
                 <Mail size={16} className="shrink-0 text-secondary" />
-                <span>sdn2kedundung@gmail.com</span>
+                <span>sdnkedundung2mojokerto@gmail.com</span>
+              </div>
+              <div className="flex items-center gap-2.5 text-sm text-white/70">
+                <Phone size={16} className="shrink-0 text-secondary" />
+                <span>0812-1650-3267 (Yatik Hartini, S.Pd, M.Pd)</span>
               </div>
             </div>
           </div>

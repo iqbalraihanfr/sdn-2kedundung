@@ -4,7 +4,7 @@ import { Gerakan7KaihJourneySection } from "@/components/gerakan-7kaih/gerakan-7
 
 export default function Gerakan7KAIHPage() {
   return (
-    <div className="min-h-screen bg-surface pt-24">
+    <div className="min-h-screen bg-surface">
       <Gerakan7KaihHeroSection />
       <Gerakan7KaihJourneySection />
       <Gerakan7KaihAboutSection />

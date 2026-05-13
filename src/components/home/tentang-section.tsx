@@ -6,8 +6,8 @@ import { misiPoints } from "@/data";
 export function TentangSection() {
   return (
     <section id="visi-misi" className="bg-white/70 py-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
         {/* Top Part: Profil Singkat & Headmaster Photo */}
         <div className="grid gap-12 lg:grid-cols-5 lg:items-center">
           {/* Profil Singkat (60% -> 3/5 cols) */}
@@ -20,10 +20,19 @@ export function TentangSection() {
             </h2>
             <div className="space-y-4 text-lg text-text-secondary leading-relaxed">
               <p>
-                SD Negeri Kedundung 2 adalah sekolah dasar yang berdedikasi untuk memberikan pendidikan berkualitas tinggi dan berkarakter. Kami berkomitmen untuk menciptakan lingkungan belajar yang inspiratif, aman, dan inklusif bagi seluruh siswa.
+                SD Negeri Kedundung 2 merupakan institusi pendidikan dasar yang berada di wilayah perifer Kota Mojokerto, tepatnya di Kelurahan Kedundung yang berbatasan langsung dengan Kabupaten Mojokerto. Posisi strategis ini menjadikan sekolah sebagai salah satu pusat layanan pendidikan yang berperan penting dalam menjembatani kebutuhan pendidikan masyarakat di kawasan perbatasan.
               </p>
               <p>
-                Dengan dukungan tenaga pendidik yang profesional dan fasilitas yang memadai, kami terus berupaya mengembangkan potensi setiap anak didik, baik di bidang akademik maupun non-akademik, sejalan dengan visi dan misi sekolah.
+                Dalam pelaksanaan proses pendidikan, SD Negeri Kedundung 2 tidak hanya berfokus pada kegiatan intrakurikuler dan kokurikuler, tetapi juga secara aktif mengembangkan berbagai program ekstrakurikuler sebagai sarana optimalisasi potensi peserta didik. Beragam kegiatan yang disediakan meliputi bidang olahraga, seni, dan keagamaan, seperti bola voli, sepak takraw, futsal, karate, tari, seni rupa, samroh, pantomim, pramuka, serta program Baca Tulis Al-Qur’an (BTQ) yang dikenal dengan istilah &ldquo;Ning Ita di sekolah&rdquo;.
+              </p>
+              <p>
+                Komitmen terhadap pengembangan potensi nonakademik telah membuahkan hasil yang nyata, ditandai dengan berbagai capaian prestasi di bidang olahraga dan seni. Sementara itu, dalam ranah akademik, sekolah terus melakukan penguatan melalui berbagai strategi peningkatan mutu pembelajaran guna memastikan peserta didik mampu bersaing secara optimal dengan sekolah lain.
+              </p>
+              <p>
+                Sebagai bagian dari upaya pembentukan karakter, SD Negeri Kedundung 2 juga mengimplementasikan berbagai program pembiasaan yang terstruktur dan berkelanjutan, seperti kegiatan tematik harian, &ldquo;Jumat Berisi Ning Aksi&rdquo;, KITA, Mager Bersama, Laciku, serta program-program inovatif lainnya yang berorientasi pada penguatan nilai-nilai positif peserta didik.
+              </p>
+              <p>
+                Dengan semangat peningkatan kualitas yang berkesinambungan, SD Negeri Kedundung 2 senantiasa berupaya mengoptimalkan layanan pendidikan secara holistik. Upaya ini diarahkan untuk mewujudkan lingkungan belajar yang unggul, adaptif, dan berdaya saing, serta mampu mencetak generasi yang berkarakter, kompeten, dan berintegritas.
               </p>
             </div>
           </div>
@@ -47,7 +56,7 @@ export function TentangSection() {
               */}
             </div>
             <div className="mt-6 text-center">
-              <h3 className="text-xl font-bold text-primary">Nama Kepala Sekolah, S.Pd.</h3>
+              <h3 className="text-xl font-bold text-primary">Yatik Hartini, S.Pd, M.Pd</h3>
               <p className="mt-1 text-sm font-medium text-text-secondary">Kepala Sekolah SDN Kedundung 2</p>
             </div>
           </div>

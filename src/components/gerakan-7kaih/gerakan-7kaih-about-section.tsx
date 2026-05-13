@@ -25,7 +25,7 @@ export function Gerakan7KaihAboutSection() {
           </div>
           <div className="shrink-0 text-center md:text-right">
             <a
-              href="https://cerdasberkarakter.kemdikbud.go.id"
+              href="https://cerdasberkarakter.kemendikdasmen.go.id/gerakan7kebiasaan/"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex flex-col items-center gap-2 md:items-end"

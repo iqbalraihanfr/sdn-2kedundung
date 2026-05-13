@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   Menu,
@@ -54,14 +55,39 @@ const navItems: NavItem[] = [
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [overTransparentHero, setOverTransparentHero] = useState(false);
   const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({});
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    const updateNavbarState = () => {
+      setScrolled(window.scrollY > 20);
+
+      const transparentHero = document.querySelector<HTMLElement>(
+        "[data-transparent-navbar]"
+      );
+
+      if (!transparentHero) {
+        setOverTransparentHero(false);
+        return;
+      }
+
+      const heroRect = transparentHero.getBoundingClientRect();
+      setOverTransparentHero(heroRect.top <= 80 && heroRect.bottom > 80);
+    };
+
+    updateNavbarState();
+    window.addEventListener("scroll", updateNavbarState, { passive: true });
+    window.addEventListener("resize", updateNavbarState);
+
+    return () => {
+      window.removeEventListener("scroll", updateNavbarState);
+      window.removeEventListener("resize", updateNavbarState);
+    };
+  }, [pathname]);
+
+  const isTransparentOverHero = overTransparentHero && !scrolled && !isOpen;
+  const isSolidNav = scrolled && !isTransparentOverHero;
 
   const toggleDropdown = (label: string) => {
     setOpenDropdowns((prev) => ({ ...prev, [label]: !prev[label] }));
@@ -69,7 +95,9 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${scrolled
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${isTransparentOverHero
+        ? "bg-transparent"
+        : isSolidNav
         ? "bg-white/90 shadow-sm backdrop-blur-xl"
         : pathname === "/"
           ? "bg-transparent"
@@ -78,22 +106,25 @@ export function Navbar() {
     >
       <div className="w-full px-6 sm:px-8 lg:px-14 xl:px-24">
         <div className="flex h-20 items-center justify-between transition-all duration-300">
-          <Link href="/" className="group flex items-center gap-3">
-            <div
-              className={`flex h-10 w-10 items-center justify-center rounded-lg text-sm font-bold transition-colors ${scrolled ? "bg-primary text-white" : "bg-white/20 !text-white"
-                }`}
-            >
-              SP
+          <Link href="/" className="group flex shrink-0 items-center gap-2.5 sm:gap-3">
+            <div className="relative h-16 w-16 shrink-0 overflow-hidden transition-transform duration-300 group-hover:scale-105">
+              <Image
+                src="/images/logo-sdn2kedundung.png"
+                alt="Logo SDN Kedundung 2"
+                fill
+                className="object-contain"
+                sizes="64px"
+              />
             </div>
             <div>
               <span
-                className={`block text-lg font-bold tracking-tight transition-colors ${scrolled ? "text-primary" : "!text-white"
+                className={`block text-lg font-bold tracking-tight transition-colors ${isSolidNav ? "text-primary" : "!text-white"
                   }`}
               >
                 SIPANDA
               </span>
               <span
-                className={`hidden text-xs leading-tight transition-colors sm:block ${scrolled ? "text-text-secondary" : "!text-white"
+                className={`hidden text-xs leading-tight transition-colors sm:block ${isSolidNav ? "text-text-secondary" : "!text-white"
                   }`}
               >
                 SDN Kedundung 2
@@ -110,11 +141,11 @@ export function Navbar() {
               let itemClass = "group relative flex items-center gap-2 px-3 xl:px-4 py-2.5 rounded-xl text-[14px] xl:text-[15px] font-semibold transition-all duration-300";
 
               if (isActive) {
-                itemClass += scrolled
+                itemClass += isSolidNav
                   ? " bg-primary !text-white shadow-md shadow-primary/20"
                   : " bg-white/20 !text-white shadow-sm";
               } else {
-                itemClass += scrolled
+                itemClass += isSolidNav
                   ? " text-text-secondary hover:bg-primary/5 hover:text-primary"
                   : " !text-white hover:bg-white/20";
               }
@@ -175,7 +206,7 @@ export function Navbar() {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`rounded-lg p-2 transition-colors lg:hidden ${scrolled ? "text-primary hover:bg-surface-alt" : "!text-white hover:bg-white/10"
+            className={`rounded-lg p-2 transition-colors lg:hidden ${isSolidNav ? "text-primary hover:bg-surface-alt" : "!text-white hover:bg-white/10"
               }`}
             aria-label="Toggle menu"
           >
