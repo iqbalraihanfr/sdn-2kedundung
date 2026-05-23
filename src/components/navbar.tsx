@@ -13,6 +13,7 @@ import {
   FileText,
   Heart,
   BookOpen,
+  Trophy,
   Home,
   Info,
   Bell,
@@ -44,6 +45,7 @@ const navItems: NavItem[] = [
     label: "Program Sekolah",
     icon: Star,
     children: [
+      { href: "/prestasi", label: "Prestasi", icon: Trophy },
       { href: "/gerakan-7kaih", label: "7 KAIH", icon: Heart },
       { href: "/tata-tertib", label: "Tata Tertib", icon: BookOpen },
     ],

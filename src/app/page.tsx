@@ -1,5 +1,6 @@
 import { FeaturesSection } from "@/components/home/features-section";
 import { HeroSection } from "@/components/home/hero-section";
+import { PrestasiSection } from "@/components/home/prestasi-section";
 import { TentangSection } from "@/components/home/tentang-section";
 import { InformasiSection } from "@/components/home/informasi-section";
 
@@ -9,6 +10,7 @@ export default function HomePage() {
       <HeroSection />
       <TentangSection />
       <FeaturesSection />
+      <PrestasiSection />
       <InformasiSection />
     </>
   );

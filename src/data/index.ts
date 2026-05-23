@@ -73,6 +73,105 @@ export const misiPoints = [
   "Mengembangkan dan memfasilitasi peningkatan prestasi murid sesuai minat dan bakatnya melalui proses pendampingan dan kerja sama dengan orang tua.",
 ];
 
+export const kepalaSekolah = {
+  src: "/images/kepala-sekolah.jpeg",
+  nama: "Kepala Sekolah SDN Kedundung 2",
+};
+
+export const prestasiImages = [
+  {
+    src: "/images/prestasi-juara1-menggambar.jpeg",
+    alt: "Juara 1 Lomba Menggambar Bulan PRB 2025",
+    siswa: "Nikita Ratu Valensya",
+    kelas: "Kelas 5",
+    prestasi: "Juara 1 Lomba Menggambar",
+  },
+  {
+    src: "/images/prestasi-apresiasi-senin.jpeg",
+    alt: "Senin Apresiasi - Juara Menggambar & Tari",
+    siswa: "Nikita Ratu Valensya",
+    kelas: "Kelas 5",
+    prestasi: "Juara 1 Menggambar, Juara Harapan 4 Tari C, Juara 2 Tari B",
+  },
+  {
+    src: "/images/prestasi-best-contestant.jpeg",
+    alt: "Best Contestant Lomba Menggambar 2025",
+    siswa: "Nikita Ratu Valensya",
+    kelas: "Kelas 5",
+    prestasi: "Best Contestant Lomba Menggambar 2025",
+  },
+  {
+    src: "/images/prestasi-kaligrafi-jawa.jpeg",
+    alt: "Juara Harapan 3 Kaligrafi Aksara Jawa HIPRADA 2025",
+    siswa: "Nikita Ratu Valensya",
+    kelas: "Kelas 5",
+    prestasi: "Juara Harapan 3 Kaligrafi Aksara Jawa HIPRADA 2025",
+  },
+  {
+    src: "/images/prestasi-tari-football.jpeg",
+    alt: "Apresiasi Terbaik 4 Tari Tunggal C & Juara 2 Fun Game Football",
+    siswa: "Gita Suluh Ati",
+    kelas: "Kelas 5",
+    prestasi: "Terbaik 4 Tari Tunggal C & Juara 2 Fun Game Football 2025",
+  },
+  {
+    src: "/images/prestasi-tari-tunggal.jpeg",
+    alt: "Juara Harapan Tari Tunggal Kategori C",
+    siswa: "Gita Suluh Ati",
+    kelas: "Kelas 5",
+    prestasi: "Juara Harapan Tari Tunggal Kategori C",
+  },
+  {
+    src: "/images/prestasi-piala-pramuka.jpeg",
+    alt: "Prestasi Pramuka - Piala dan Piagam",
+    siswa: "Gita Suluh Ati",
+    kelas: "Kelas 5",
+    prestasi: "Juara Lomba Pramuka",
+  },
+  {
+    src: "/images/prestasi-kaligrafi-pramuka.jpeg",
+    alt: "Juara 3 Lomba Kaligrafi Aksara Pramuka",
+    siswa: "Siswi SDN Kedundung 2",
+    kelas: "",
+    prestasi: "Juara 3 Lomba Kaligrafi Aksara",
+  },
+  {
+    src: "/images/prestasi-futsal-permata-cup.jpeg",
+    alt: "Juara 3 Permata Festival Cup 2025 - Tim Futsal Arkedu",
+    siswa: "Wildan (El Capitano)",
+    kelas: "Tim Futsal Arkedu",
+    prestasi: "Juara 3 Permata Festival Cup 2025",
+  },
+  {
+    src: "/images/prestasi-sepakbola-u11.jpeg",
+    alt: "Juara 2 Sepak Bola SISOO CUP U-11",
+    siswa: "Tim Sepak Bola U-11 Arkedu",
+    kelas: "",
+    prestasi: "Juara 2 Sepak Bola SISOO CUP U-11",
+  },
+  {
+    src: "/images/prestasi-sepakbola-u10.jpeg",
+    alt: "Juara 3 Sepak Bola SISOO CUP U-10",
+    siswa: "Tim Sepak Bola U-10 Arkedu",
+    kelas: "",
+    prestasi: "Juara 3 Sepak Bola SISOO CUP U-10",
+  },
+  {
+    src: "/images/prestasi-best-player-u10.jpeg",
+    alt: "Best Player Sepak Bola SISOO CUP U-10",
+    siswa: "Fatian Zaki",
+    kelas: "Kelas 2",
+    prestasi: "Best Player Sepak Bola SISOO CUP U-10",
+  },
+  {
+    src: "/images/prestasi-juara3-bulutangkis.jpeg",
+    alt: "Juara 3 Bulutangkis",
+    siswa: "Siswa SDN Kedundung 2",
+    kelas: "",
+    prestasi: "Juara 3 Bulutangkis",
+  },
+];
+
 export const kebiasaan7Kaih = [
   {
     icon: Sun,
