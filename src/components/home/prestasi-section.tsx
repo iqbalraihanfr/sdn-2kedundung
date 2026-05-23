@@ -61,7 +61,7 @@ export function PrestasiSection() {
         <div className="mt-10 text-center">
           <Link
             href="/prestasi"
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-primary-light hover:shadow-lg"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-primary-dark hover:shadow-lg"
           >
             Lihat Semua Prestasi
             <ArrowRight size={16} />
