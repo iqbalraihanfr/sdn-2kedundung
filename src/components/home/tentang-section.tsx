@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Eye, Target, User } from "lucide-react";
+import { Eye, Target } from "lucide-react";
 
 import { misiPoints } from "@/data";
 
@@ -40,20 +40,12 @@ export function TentangSection() {
           {/* Headmaster Photo (40% -> 2/5 cols) */}
           <div className="lg:col-span-2">
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl bg-surface-alt shadow-xl border border-border">
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-text-muted">
-                {/* Fallback placeholder if image is missing */}
-                <User size={64} className="mb-4 opacity-20" />
-                <span className="text-sm font-medium">Foto Kepala Sekolah</span>
-              </div>
-              {/* NOTE: Uncomment this block when the real photo is available in public/images folder */}
-              {/* 
-              <Image 
-                src="/images/kepsek.jpg" 
+              <Image
+                src="/images/kepala-sekolah.jpeg"
                 alt="Kepala Sekolah SDN Kedundung 2"
                 fill
-                className="object-cover relative z-10"
-              /> 
-              */}
+                className="object-cover"
+              />
             </div>
             <div className="mt-6 text-center">
               <h3 className="text-xl font-bold text-primary">Yatik Hartini, S.Pd, M.Pd</h3>
