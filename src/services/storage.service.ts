@@ -4,11 +4,6 @@ import { v4 as uuidv4 } from 'uuid'
 export const storageService = {
   async uploadImage(file: File, folder: string = 'general'): Promise<string> {
     const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-
-    if (!user) {
-      throw new Error('Unauthorized')
-    }
 
     const fileExt = file.name.split('.').pop()
     const fileName = `${folder}/${uuidv4()}.${fileExt}`
@@ -34,11 +29,6 @@ export const storageService = {
 
   async deleteImage(imageUrl: string): Promise<void> {
     const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-
-    if (!user) {
-      throw new Error('Unauthorized')
-    }
 
     try {
       // Ekstrak nama file dari URL publik Supabase

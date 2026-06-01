@@ -23,6 +23,21 @@ export async function setSessionAction(email: string) {
     path: '/',
   })
 
+  await db.profile.upsert({
+    where: { id: email },
+    create: {
+      id: email,
+      name: admin.name ?? email,
+      role: admin.role,
+      position: admin.role,
+    },
+    update: {
+      name: admin.name ?? email,
+      role: admin.role,
+      position: admin.role,
+    },
+  })
+
   return { success: true }
 }
 
