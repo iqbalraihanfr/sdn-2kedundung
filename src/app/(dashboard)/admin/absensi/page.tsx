@@ -28,7 +28,7 @@ export default async function AdminAbsensiPage({
         attendanceQueries.findByClassAndDate(classId, new Date(`${date}T00:00:00`)),
       ])
     : [[], []]
-  const attendanceMap = Object.fromEntries(attendances.map((item) => [item.studentId, item.status]))
+  const attendanceMap = Object.fromEntries(attendances.map((item: any) => [item.studentId, item.status]))
 
   return (
     <div className="space-y-6">

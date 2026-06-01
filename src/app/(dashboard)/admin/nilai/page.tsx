@@ -26,7 +26,7 @@ export default async function AdminNilaiPage({
         gradeQueries.findByClassSubjectSemester(classId, subjectId, semester),
       ])
     : [[], []]
-  const gradeMap = Object.fromEntries(grades.map((item) => [item.studentId, item.score]))
+  const gradeMap = Object.fromEntries(grades.map((item: any) => [item.studentId, item.score]))
 
   return (
     <div className="space-y-6">
