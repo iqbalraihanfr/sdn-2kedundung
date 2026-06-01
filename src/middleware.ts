@@ -1,7 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
-
 export async function middleware(request: NextRequest) {
-  const isAuthPage = request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.startsWith('/admin/login')
+  const isAuthPage = request.nextUrl.pathname.startsWith('/login')
   const isAdminPage = request.nextUrl.pathname.startsWith('/admin')
   
   // A simple check for a session cookie set by our Firebase login
@@ -9,7 +8,7 @@ export async function middleware(request: NextRequest) {
 
   if (!hasSession && isAdminPage && !isAuthPage) {
     const url = request.nextUrl.clone()
-    url.pathname = '/admin/login'
+    url.pathname = '/login'
     return NextResponse.redirect(url)
   }
 
@@ -23,5 +22,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
+  matcher: ['/admin/:path*', '/login'],
 }

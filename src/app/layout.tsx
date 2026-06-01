@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "SIPANDA - SDN Kedundung 2",
@@ -25,9 +23,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className="text-text-primary">
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );
