@@ -2,12 +2,19 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, Megaphone, Image as ImageIcon, School, LogOut } from 'lucide-react'
-import { createClient } from '@/lib/supabase/client'
+import { BookOpen, CalendarCheck, ClipboardList, GraduationCap, Image as ImageIcon, LayoutDashboard, LogOut, Megaphone, School, Trophy, Users } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { logoutAction } from '@/features/auth/actions'
 
 const navItems = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+  { name: 'Siswa', href: '/admin/data-siswa', icon: GraduationCap },
+  { name: 'Kelas', href: '/admin/kelas', icon: School },
+  { name: 'Guru & Staff', href: '/admin/guru', icon: Users },
+  { name: 'Mata Pelajaran', href: '/admin/mata-pelajaran', icon: BookOpen },
+  { name: 'Absensi', href: '/admin/absensi', icon: CalendarCheck },
+  { name: 'Nilai', href: '/admin/nilai', icon: ClipboardList },
+  { name: 'Prestasi', href: '/admin/prestasi', icon: Trophy },
   { name: 'Pengumuman', href: '/admin/pengumuman', icon: Megaphone },
   { name: 'Galeri', href: '/admin/galeri', icon: ImageIcon },
   { name: 'Profil Sekolah', href: '/admin/profil', icon: School },
@@ -16,11 +23,10 @@ const navItems = [
 export function Sidebar() {
   const pathname = usePathname()
   const router = useRouter()
-  const supabase = createClient()
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
-    router.push('/admin/login')
+    await logoutAction()
+    router.push('/login')
   }
 
   return (
@@ -29,7 +35,7 @@ export function Sidebar() {
         <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">SIPANDA Admin</h2>
       </div>
 
-      <nav className="flex-1 p-4 space-y-1">
+      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
         {navItems.map((item) => {
           const isActive = pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href))
           return (

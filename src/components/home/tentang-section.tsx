@@ -44,6 +44,7 @@ export function TentangSection() {
                 src="/images/kepala-sekolah.jpeg"
                 alt="Kepala Sekolah SDN Kedundung 2"
                 fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover"
               />
             </div>

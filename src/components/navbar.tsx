@@ -114,6 +114,7 @@ export function Navbar() {
                 src="/images/logo-sdn2kedundung.png"
                 alt="Logo SDN Kedundung 2"
                 fill
+                priority
                 className="object-contain"
                 sizes="64px"
               />

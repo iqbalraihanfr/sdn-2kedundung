@@ -16,6 +16,7 @@ export function Footer() {
                   src="/images/logo-sdn2kedundung.png"
                   alt="Logo SDN Kedundung 2"
                   fill
+                  sizes="64px"
                   className="object-contain"
                 />
               </div>

@@ -17,6 +17,7 @@ export function HeroSection() {
         alt="SDN Kedundung 2"
         fill
         priority
+        sizes="100vw"
         className="object-cover"
       />
 

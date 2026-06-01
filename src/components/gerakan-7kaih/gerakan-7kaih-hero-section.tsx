@@ -13,6 +13,7 @@ export function Gerakan7KaihHeroSection() {
           src="/images/7kaih-hero.jpg"
           alt="Gerakan 7 KAIH"
           fill
+          sizes="100vw"
           className="object-cover"
           priority
         />

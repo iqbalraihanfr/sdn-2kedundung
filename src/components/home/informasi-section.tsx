@@ -2,7 +2,7 @@ import { Bell, Calendar } from "lucide-react";
 import { announcementService } from "@/features/announcements/services";
 
 export async function InformasiSection() {
-  const announcements = await announcementService.getAll();
+  const announcements = await announcementService.getPublished(6);
 
   return (
     <section id="informasi" className="bg-surface-alt pt-10 pb-24">
