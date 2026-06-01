@@ -1,7 +1,7 @@
 'use client'
 
 import { useActionState, useState } from 'react'
-import { createGalleryAction } from '../../actions'
+import { createGalleryAction } from '../actions'
 import { useRouter } from 'next/navigation'
 import { Save, ArrowLeft, Image as ImageIcon, UploadCloud } from 'lucide-react'
 import Link from 'next/link'

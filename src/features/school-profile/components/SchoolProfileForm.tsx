@@ -1,13 +1,17 @@
 'use client'
 
 import { useActionState } from 'react'
-import { updateSchoolProfileAction } from '../../actions'
+import { updateSchoolProfileAction } from '../actions'
 import { Save } from 'lucide-react'
-import type { SchoolProfileInput } from '../../schemas'
+import type { SchoolProfileInput } from '../schemas'
 
 const initialState = { error: '', success: false }
 
-export function SchoolProfileForm({ initialData }: { initialData: Partial<SchoolProfileInput> | null }) {
+type SchoolProfileFormData = Partial<{
+  [Key in keyof SchoolProfileInput]: SchoolProfileInput[Key] | null
+}>
+
+export function SchoolProfileForm({ initialData }: { initialData: SchoolProfileFormData | null }) {
   const [state, formAction, isPending] = useActionState(
     async (prevState: any, formData: FormData) => {
       const result = await updateSchoolProfileAction(formData)
@@ -45,6 +49,49 @@ export function SchoolProfileForm({ initialData }: { initialData: Partial<School
           className="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-md shadow-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-zinc-800 dark:text-zinc-100 resize-y"
           placeholder="Masukkan deskripsi sekolah di sini..."
           required
+        />
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="space-y-2">
+          <label htmlFor="vision" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            Visi
+          </label>
+          <textarea
+            id="vision"
+            name="vision"
+            rows={4}
+            defaultValue={initialData?.vision || ''}
+            className="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-md shadow-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-zinc-800 dark:text-zinc-100 resize-y"
+            placeholder="Tuliskan visi sekolah..."
+          />
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="mission" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            Misi
+          </label>
+          <textarea
+            id="mission"
+            name="mission"
+            rows={4}
+            defaultValue={initialData?.mission || ''}
+            className="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-md shadow-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-zinc-800 dark:text-zinc-100 resize-y"
+            placeholder="Pisahkan setiap misi dengan baris baru..."
+          />
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <label htmlFor="organization" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+          Struktur Organisasi
+        </label>
+        <textarea
+          id="organization"
+          name="organization"
+          rows={3}
+          defaultValue={initialData?.organization || ''}
+          className="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-md shadow-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-zinc-800 dark:text-zinc-100 resize-y"
+          placeholder="Kepala Sekolah, Wali Kelas, Komite, dan struktur lain..."
         />
       </div>
 

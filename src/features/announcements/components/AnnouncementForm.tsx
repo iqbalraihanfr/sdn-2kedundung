@@ -1,18 +1,29 @@
 'use client'
 
 import { useActionState } from 'react'
-import { createAnnouncementAction } from '../../actions'
+import { createAnnouncementAction, updateAnnouncementAction } from '../actions'
 import { useRouter } from 'next/navigation'
 import { Save, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 
 const initialState = { error: '', success: false }
 
-export function AnnouncementForm() {
+export function AnnouncementForm({
+  announcement,
+}: {
+  announcement?: {
+    id: string
+    title: string
+    content: string
+    status: string
+    thumbnail: string | null
+  } | null
+}) {
   const router = useRouter()
+  const action = announcement ? updateAnnouncementAction.bind(null, announcement.id) : createAnnouncementAction
   const [state, formAction, isPending] = useActionState(
     async (prevState: any, formData: FormData) => {
-      const result = await createAnnouncementAction(formData)
+      const result = await action(formData)
       if (result?.success) {
         router.push('/admin/pengumuman')
         return { success: true, error: '' }
@@ -29,7 +40,7 @@ export function AnnouncementForm() {
           <ArrowLeft className="h-5 w-5 text-zinc-500" />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Tambah Pengumuman</h1>
+          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">{announcement ? 'Edit Pengumuman' : 'Tambah Pengumuman'}</h1>
           <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Buat berita atau informasi baru untuk ditampilkan di halaman utama.</p>
         </div>
       </div>
@@ -51,6 +62,7 @@ export function AnnouncementForm() {
               id="title"
               name="title"
               required
+              defaultValue={announcement?.title ?? ''}
               placeholder="Contoh: Libur Semester Ganjil"
               className="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-md shadow-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-zinc-800 dark:text-zinc-100"
             />
@@ -65,9 +77,40 @@ export function AnnouncementForm() {
               name="content"
               required
               rows={6}
+              defaultValue={announcement?.content ?? ''}
               placeholder="Tuliskan isi pengumuman secara detail di sini..."
               className="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-md shadow-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-zinc-800 dark:text-zinc-100 resize-y"
             />
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="space-y-2">
+              <label htmlFor="status" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                Status
+              </label>
+              <select
+                id="status"
+                name="status"
+                defaultValue={announcement?.status ?? 'PUBLISHED'}
+                className="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-md shadow-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-zinc-800 dark:text-zinc-100"
+              >
+                <option value="PUBLISHED">Published</option>
+                <option value="DRAFT">Draft</option>
+              </select>
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="thumbnail" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                Thumbnail URL
+              </label>
+              <input
+                type="url"
+                id="thumbnail"
+                name="thumbnail"
+                defaultValue={announcement?.thumbnail ?? ''}
+                placeholder="https://..."
+                className="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-md shadow-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-zinc-800 dark:text-zinc-100"
+              />
+            </div>
           </div>
 
           <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800 flex justify-end">
@@ -81,7 +124,7 @@ export function AnnouncementForm() {
               ) : (
                 <Save className="h-4 w-4" />
               )}
-              {isPending ? 'Menyimpan...' : 'Simpan Pengumuman'}
+              {isPending ? 'Menyimpan...' : announcement ? 'Simpan Perubahan' : 'Simpan Pengumuman'}
             </button>
           </div>
         </form>

@@ -2,15 +2,17 @@
 
 import { revalidatePath } from 'next/cache'
 import { requireAdminEmail } from '@/lib/auth'
-import { classSchema } from './schemas'
-import { classService } from './services'
+import { teacherSchema } from './schemas'
+import { teacherService } from './services'
 
-export async function createClassAction(formData: FormData) {
+export async function createTeacherAction(formData: FormData) {
   try {
     await requireAdminEmail()
-    const parsed = classSchema.safeParse(Object.fromEntries(formData))
+    const parsed = teacherSchema.safeParse(Object.fromEntries(formData))
     if (!parsed.success) return { error: 'Data tidak valid' }
-    await classService.create(parsed.data)
+
+    await teacherService.create(parsed.data)
+    revalidatePath('/admin/guru')
     revalidatePath('/admin/kelas')
     return { success: true }
   } catch (err) {
@@ -18,12 +20,14 @@ export async function createClassAction(formData: FormData) {
   }
 }
 
-export async function updateClassAction(id: string, formData: FormData) {
+export async function updateTeacherAction(id: string, formData: FormData) {
   try {
     await requireAdminEmail()
-    const parsed = classSchema.safeParse(Object.fromEntries(formData))
+    const parsed = teacherSchema.safeParse(Object.fromEntries(formData))
     if (!parsed.success) return { error: 'Data tidak valid' }
-    await classService.update(id, parsed.data)
+
+    await teacherService.update(id, parsed.data)
+    revalidatePath('/admin/guru')
     revalidatePath('/admin/kelas')
     return { success: true }
   } catch (err) {
@@ -31,10 +35,11 @@ export async function updateClassAction(id: string, formData: FormData) {
   }
 }
 
-export async function deleteClassAction(id: string) {
+export async function deleteTeacherAction(id: string) {
   try {
     await requireAdminEmail()
-    await classService.delete(id)
+    await teacherService.delete(id)
+    revalidatePath('/admin/guru')
     revalidatePath('/admin/kelas')
     return { success: true }
   } catch (err) {

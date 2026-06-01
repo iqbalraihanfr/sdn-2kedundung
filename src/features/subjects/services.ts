@@ -21,4 +21,8 @@ export const subjectService = {
     await this.getById(id)
     return subjectQueries.delete(id)
   },
+  async updateClassAllocations(subjectId: string, classIds: string[]) {
+    await this.getById(subjectId)
+    return subjectQueries.updateClassAllocations(subjectId, classIds)
+  },
 }

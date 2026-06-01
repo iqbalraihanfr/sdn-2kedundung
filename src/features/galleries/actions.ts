@@ -1,27 +1,19 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/lib/supabase/server'
-import { gallerySchema } from './schemas'
+import { requireAdminEmail } from '@/lib/auth'
 import { galleryService } from './services'
 import { storageService } from '@/services/storage.service'
 
 export async function createGalleryAction(formData: FormData) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-
-  if (!user) {
-    return { error: 'Unauthorized' }
-  }
-
-  const image = formData.get('image') as File | null
-  const caption = formData.get('caption') as string || ''
-
-  if (!image || image.size === 0) {
-    return { error: 'Gambar wajib diunggah' }
-  }
-
   try {
+    await requireAdminEmail()
+    const image = formData.get('image') as File | null
+    const caption = formData.get('caption') as string || ''
+
+    if (!image || image.size === 0) {
+      return { error: 'Gambar wajib diunggah' }
+    }
     // 1. Upload gambar ke storage
     const imageUrl = await storageService.uploadImage(image, 'galeri')
 
@@ -37,14 +29,8 @@ export async function createGalleryAction(formData: FormData) {
 }
 
 export async function deleteGalleryAction(id: string) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-
-  if (!user) {
-    return { error: 'Unauthorized' }
-  }
-
   try {
+    await requireAdminEmail()
     const gallery = await galleryService.getById(id)
     
     // 1. Hapus gambar dari storage

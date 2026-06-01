@@ -4,21 +4,40 @@ import type { ClassInput } from './schemas'
 export const classQueries = {
   findAll: () => {
     return db.class.findMany({
+      include: {
+        homeroom: true,
+        _count: {
+          select: { students: true },
+        },
+        subjects: {
+          include: { subject: true },
+          orderBy: { subject: { name: 'asc' } },
+        },
+      },
       orderBy: { name: 'asc' },
     })
   },
   findById: (id: string) => {
     return db.class.findUnique({
       where: { id },
+      include: { homeroom: true, subjects: true },
     })
   },
   create: (data: ClassInput) => {
-    return db.class.create({ data })
+    return db.class.create({
+      data: {
+        name: data.name,
+        homeroomId: data.homeroomId || null,
+      },
+    })
   },
   update: (id: string, data: ClassInput) => {
     return db.class.update({
       where: { id },
-      data,
+      data: {
+        name: data.name,
+        homeroomId: data.homeroomId || null,
+      },
     })
   },
   delete: (id: string) => {

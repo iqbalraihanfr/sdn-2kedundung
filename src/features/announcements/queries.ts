@@ -9,6 +9,15 @@ export const announcementQueries = {
     })
   },
 
+  findPublished: (take = 6) => {
+    return db.announcement.findMany({
+      where: { status: 'PUBLISHED' },
+      orderBy: { createdAt: 'desc' },
+      include: { author: true },
+      take,
+    })
+  },
+
   findById: (id: string) => {
     return db.announcement.findUnique({
       where: { id },

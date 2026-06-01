@@ -4,12 +4,19 @@ import type { SubjectInput } from './schemas'
 export const subjectQueries = {
   findAll: () => {
     return db.subject.findMany({
+      include: {
+        classes: {
+          include: { class: true },
+          orderBy: { class: { name: 'asc' } },
+        },
+      },
       orderBy: { name: 'asc' },
     })
   },
   findById: (id: string) => {
     return db.subject.findUnique({
       where: { id },
+      include: { classes: true },
     })
   },
   create: (data: SubjectInput) => {
@@ -25,5 +32,15 @@ export const subjectQueries = {
     return db.subject.delete({
       where: { id },
     })
+  },
+  updateClassAllocations: async (subjectId: string, classIds: string[]) => {
+    return db.$transaction([
+      db.classSubject.deleteMany({ where: { subjectId } }),
+      ...classIds.map((classId) =>
+        db.classSubject.create({
+          data: { subjectId, classId },
+        })
+      ),
+    ])
   },
 }

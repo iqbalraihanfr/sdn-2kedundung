@@ -1,7 +1,7 @@
 'use client'
 
 import { useActionState } from 'react'
-import { createStudentAction } from '../actions'
+import { createStudentAction, updateStudentAction } from '../actions'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
@@ -9,13 +9,20 @@ const initialState = { error: '', success: false }
 
 type StudentFormProps = {
   classes: { id: string; name: string }[]
+  student?: {
+    id: string
+    nisn: string
+    name: string
+    classId: string
+  } | null
 }
 
-export function StudentForm({ classes }: StudentFormProps) {
+export function StudentForm({ classes, student }: StudentFormProps) {
   const router = useRouter()
+  const action = student ? updateStudentAction.bind(null, student.id) : createStudentAction
   const [state, formAction, isPending] = useActionState(
     async (prevState: any, formData: FormData) => {
-      const result = await createStudentAction(formData)
+      const result = await action(formData)
       if (result?.error) {
         return { error: result.error, success: false }
       }
@@ -47,6 +54,7 @@ export function StudentForm({ classes }: StudentFormProps) {
               name="nisn"
               type="text"
               required
+              defaultValue={student?.nisn ?? ''}
               placeholder="Masukkan 10 digit NISN"
               className="w-full px-3 py-2 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-zinc-900 dark:text-zinc-100"
             />
@@ -61,6 +69,7 @@ export function StudentForm({ classes }: StudentFormProps) {
               name="name"
               type="text"
               required
+              defaultValue={student?.name ?? ''}
               placeholder="Contoh: Budi Santoso"
               className="w-full px-3 py-2 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-zinc-900 dark:text-zinc-100"
             />
@@ -74,6 +83,7 @@ export function StudentForm({ classes }: StudentFormProps) {
               id="classId"
               name="classId"
               required
+              defaultValue={student?.classId ?? ''}
               className="w-full px-3 py-2 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-zinc-900 dark:text-zinc-100"
             >
               <option value="">-- Pilih Kelas --</option>
@@ -92,7 +102,7 @@ export function StudentForm({ classes }: StudentFormProps) {
             disabled={isPending}
             className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-sm transition-colors text-sm font-medium disabled:opacity-50"
           >
-            {isPending ? 'Menyimpan...' : 'Simpan Data'}
+            {isPending ? 'Menyimpan...' : student ? 'Simpan Perubahan' : 'Simpan Data'}
           </button>
           <Link
             href="/admin/data-siswa"

@@ -1,4 +1,7 @@
 import { studentQueries } from '../queries'
+import Link from 'next/link'
+import { Pencil } from 'lucide-react'
+import { DeleteStudentButton } from './DeleteStudentButton'
 
 export async function StudentList() {
   const students = await studentQueries.findAll()
@@ -37,9 +40,12 @@ export async function StudentList() {
                     {new Date(student.createdAt).toLocaleDateString('id-ID')}
                   </td>
                   <td className="py-3 px-4 text-right">
-                    <button className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium text-sm">
-                      Edit
-                    </button>
+                    <div className="flex justify-end gap-1">
+                      <Link href={`/admin/data-siswa/${student.id}/edit`} className="inline-flex items-center justify-center rounded-md p-2 text-blue-600 transition-colors hover:bg-blue-50 hover:text-blue-800 dark:text-blue-400 dark:hover:bg-blue-500/10">
+                        <Pencil className="h-4 w-4" />
+                      </Link>
+                      <DeleteStudentButton id={student.id} name={student.name} />
+                    </div>
                   </td>
                 </tr>
               ))

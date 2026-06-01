@@ -6,6 +6,10 @@ export const announcementService = {
     return announcementQueries.findAll()
   },
 
+  async getPublished(take?: number) {
+    return announcementQueries.findPublished(take)
+  },
+
   async getById(id: string) {
     const announcement = await announcementQueries.findById(id)
     if (!announcement) throw new Error('Pengumuman tidak ditemukan')
