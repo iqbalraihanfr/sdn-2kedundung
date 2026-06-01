@@ -1,5 +1,6 @@
 import { announcementService } from '@/features/announcements/services'
-import { Megaphone, Plus, Trash2 } from 'lucide-react'
+import { DeleteAnnouncementButton } from '@/features/announcements/components/DeleteAnnouncementButton'
+import { Megaphone, Pencil, Plus } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata = {
@@ -37,6 +38,7 @@ export default async function PengumumanPage() {
               <tr>
                 <th className="px-6 py-3 font-medium">Judul</th>
                 <th className="px-6 py-3 font-medium">Konten</th>
+                <th className="px-6 py-3 font-medium">Status</th>
                 <th className="px-6 py-3 font-medium">Tanggal</th>
                 <th className="px-6 py-3 font-medium text-right">Aksi</th>
               </tr>
@@ -46,11 +48,19 @@ export default async function PengumumanPage() {
                 <tr key={item.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
                   <td className="px-6 py-4 font-medium text-zinc-900 dark:text-zinc-100 whitespace-nowrap">{item.title}</td>
                   <td className="px-6 py-4 text-zinc-500 truncate max-w-xs">{item.content}</td>
+                  <td className="px-6 py-4">
+                    <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${item.status === 'PUBLISHED' ? 'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-300' : 'bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300'}`}>
+                      {item.status === 'PUBLISHED' ? 'Published' : 'Draft'}
+                    </span>
+                  </td>
                   <td className="px-6 py-4 text-zinc-500 whitespace-nowrap">{new Date(item.createdAt).toLocaleDateString('id-ID')}</td>
                   <td className="px-6 py-4 text-right">
-                    <button className="text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-md transition-colors">
-                      <Trash2 className="h-4 w-4" />
-                    </button>
+                    <div className="flex justify-end gap-1">
+                      <Link href={`/admin/pengumuman/${item.id}/edit`} className="rounded-md p-2 text-blue-600 transition-colors hover:bg-blue-50 hover:text-blue-800 dark:text-blue-400 dark:hover:bg-blue-500/10">
+                        <Pencil className="h-4 w-4" />
+                      </Link>
+                      <DeleteAnnouncementButton id={item.id} title={item.title} />
+                    </div>
                   </td>
                 </tr>
               ))}

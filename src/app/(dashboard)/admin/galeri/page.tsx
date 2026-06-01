@@ -1,5 +1,6 @@
 import { galleryService } from '@/features/galleries/services'
-import { Image as ImageIcon, Plus, Trash2 } from 'lucide-react'
+import { DeleteGalleryButton } from '@/features/galleries/components/DeleteGalleryButton'
+import { Image as ImageIcon, Plus } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata = {
@@ -39,9 +40,7 @@ export default async function GaleriPage() {
                 <img src={item.imageUrl} alt={item.caption || 'Foto Galeri'} className="object-cover w-full h-full" />
                 
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <button className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors shadow-sm">
-                    <Trash2 className="h-5 w-5" />
-                  </button>
+                  <DeleteGalleryButton id={item.id} />
                 </div>
               </div>
               {item.caption && (

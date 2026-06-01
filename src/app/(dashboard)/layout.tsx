@@ -1,6 +1,6 @@
 import { Header } from '@/components/layout/header'
 import { Sidebar } from '@/components/layout/sidebar'
-import { createClient } from '@/lib/supabase/server'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export default async function DashboardLayout({
@@ -8,12 +8,12 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode
 }) {
-  const supabase = await createClient()
-  const { data: { user }, error } = await supabase.auth.getUser()
+  const cookieStore = await cookies()
+  const session = cookieStore.get('sipanda-auth')
 
   // Guard untuk proteksi route di sisi server (meskipun middleware/proxy.ts sudah mengecek)
-  if (error || !user) {
-    redirect('/admin/login')
+  if (!session) {
+    redirect('/login')
   }
 
   return (
