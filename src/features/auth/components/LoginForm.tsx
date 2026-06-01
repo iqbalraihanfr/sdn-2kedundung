@@ -1,13 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import { auth, googleProvider } from '@/lib/firebase/config'
+import { signInWithPopup } from 'firebase/auth'
 import { LogIn, AlertCircle } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export function LoginForm() {
   const [isPending, setIsPending] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
-  const supabase = createClient()
+  const router = useRouter()
 
   useEffect(() => {
     // Check if there is an error in URL params
@@ -20,15 +22,17 @@ export function LoginForm() {
   const handleGoogleLogin = async () => {
     setIsPending(true)
     setErrorMsg('')
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback?next=/admin`,
-      },
-    })
-
-    if (error) {
-      setErrorMsg(error.message)
+    try {
+      const result = await signInWithPopup(auth, googleProvider)
+      
+      // Instead of relying purely on Firebase client state, we need to tell
+      // our Next.js backend about the successful login. We can call our callback route.
+      // Or we can just redirect to /admin since we will protect it on the client side for now.
+      
+      router.push('/admin')
+      
+    } catch (error: any) {
+      setErrorMsg(error.message || 'Gagal masuk dengan Google.')
       setIsPending(false)
     }
   }
