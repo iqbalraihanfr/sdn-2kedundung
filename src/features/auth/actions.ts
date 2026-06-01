@@ -1,25 +1,32 @@
 'use server'
 
-import { createClient } from '@/lib/supabase/server'
-import { loginSchema } from './schemas'
-import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
+import { db } from '@/lib/db'
 
-export async function loginAction(formData: FormData) {
-  const parsed = loginSchema.safeParse(Object.fromEntries(formData))
-  if (!parsed.success) {
-    return { error: 'Data yang dimasukkan tidak valid' }
-  }
-
-  const supabase = await createClient()
-
-  const { error } = await supabase.auth.signInWithPassword({
-    email: parsed.data.email,
-    password: parsed.data.password,
+export async function setSessionAction(email: string) {
+  // 1. Periksa apakah email ada di whitelist
+  const admin = await db.adminWhitelist.findUnique({
+    where: { email },
   })
 
-  if (error) {
-    return { error: 'Email atau kata sandi salah' }
+  if (!admin) {
+    return { error: 'Akses ditolak: Email Anda belum terdaftar sebagai admin.' }
   }
 
-  redirect('/admin')
+  // 2. Set HTTP-only cookie
+  const cookieStore = await cookies()
+  cookieStore.set('sipanda-auth', email, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: 60 * 60 * 24 * 7, // 1 minggu
+    path: '/',
+  })
+
+  return { success: true }
+}
+
+export async function logoutAction() {
+  const cookieStore = await cookies()
+  cookieStore.delete('sipanda-auth')
 }

@@ -6,6 +6,8 @@ import { signInWithPopup } from 'firebase/auth'
 import { LogIn, AlertCircle } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
+import { setSessionAction } from '../actions'
+
 export function LoginForm() {
   const [isPending, setIsPending] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
@@ -25,9 +27,15 @@ export function LoginForm() {
     try {
       const result = await signInWithPopup(auth, googleProvider)
       
-      // Instead of relying purely on Firebase client state, we need to tell
-      // our Next.js backend about the successful login. We can call our callback route.
-      // Or we can just redirect to /admin since we will protect it on the client side for now.
+      if (!result.user.email) {
+        throw new Error('Email tidak ditemukan dari akun Google Anda.')
+      }
+
+      // Verifikasi whitelist dan set session
+      const res = await setSessionAction(result.user.email)
+      if (res?.error) {
+        throw new Error(res.error)
+      }
       
       router.push('/admin')
       

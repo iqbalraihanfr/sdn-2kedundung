@@ -1,15 +1,15 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/lib/supabase/server'
+import { cookies } from 'next/headers'
 import { studentSchema } from './schemas'
 import { studentService } from './services'
 
 export async function createStudentAction(formData: FormData) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const cookieStore = await cookies()
+  const session = cookieStore.get('sipanda-auth')
 
-  if (!user) return { error: 'Unauthorized' }
+  if (!session?.value) return { error: 'Unauthorized' }
 
   const parsed = studentSchema.safeParse(Object.fromEntries(formData))
   if (!parsed.success) return { error: 'Data tidak valid' }
@@ -24,10 +24,10 @@ export async function createStudentAction(formData: FormData) {
 }
 
 export async function deleteStudentAction(id: string) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const cookieStore = await cookies()
+  const session = cookieStore.get('sipanda-auth')
 
-  if (!user) return { error: 'Unauthorized' }
+  if (!session?.value) return { error: 'Unauthorized' }
 
   try {
     await studentService.delete(id)
