@@ -16,11 +16,14 @@ datasource db {
 model Profile {
   id        String   @id // Menggunakan ID dari auth.users Supabase
   name      String
+  nip       String?
+  position  String?
   role      String   @default("user") // "admin", "user", "parent"
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   announcements Announcement[]
+  homeroomClasses Class[] @relation("ClassHomeroom")
 
   @@map("profiles")
 }
@@ -32,6 +35,9 @@ model Profile {
 model SchoolProfile {
   id           String   @id @default(cuid())
   description  String   @db.Text
+  vision       String?  @db.Text
+  mission      String?  @db.Text
+  organization String?  @db.Text
   contactEmail String?
   contactPhone String?
   address      String?  @db.Text
@@ -44,6 +50,8 @@ model Announcement {
   id        String   @id @default(cuid())
   title     String
   content   String   @db.Text
+  status    String   @default("PUBLISHED")
+  thumbnail String?
   authorId  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -69,10 +77,13 @@ model Gallery {
 model Class {
   id        String   @id @default(cuid())
   name      String   // misal: "Kelas 1", "Kelas 2A"
+  homeroomId String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   students  Student[]
+  homeroom  Profile? @relation("ClassHomeroom", fields: [homeroomId], references: [id], onDelete: SetNull)
+  subjects  ClassSubject[]
 
   @@map("classes")
 }
@@ -88,6 +99,7 @@ model Student {
   class       Class        @relation(fields: [classId], references: [id], onDelete: Cascade)
   grades      Grade[]
   attendances Attendance[]
+  achievements Achievement[]
 
   @@map("students")
 }
@@ -99,8 +111,22 @@ model Subject {
   updatedAt DateTime @updatedAt
 
   grades    Grade[]
+  classes   ClassSubject[]
 
   @@map("subjects")
+}
+
+model ClassSubject {
+  id        String   @id @default(cuid())
+  classId   String
+  subjectId String
+  createdAt DateTime @default(now())
+
+  class   Class   @relation(fields: [classId], references: [id], onDelete: Cascade)
+  subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  @@unique([classId, subjectId])
+  @@map("class_subjects")
 }
 
 model Grade {
@@ -133,6 +159,23 @@ model Attendance {
   // Seorang siswa hanya punya 1 catatan absensi per hari
   @@unique([studentId, date])
   @@map("attendances")
+}
+
+model Achievement {
+  id        String   @id @default(cuid())
+  studentId String
+  title     String
+  level     String
+  rank      String?
+  eventName String
+  date      DateTime? @db.Date
+  note      String?   @db.Text
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@map("achievements")
 }
 
 // -----------------------------------------------------------------------------
