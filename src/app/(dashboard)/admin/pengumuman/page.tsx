@@ -44,7 +44,7 @@ export default async function PengumumanPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800">
-              {announcements.map((item) => (
+              {announcements.map((item: any) => (
                 <tr key={item.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
                   <td className="px-6 py-4 font-medium text-zinc-900 dark:text-zinc-100 whitespace-nowrap">{item.title}</td>
                   <td className="px-6 py-4 text-zinc-500 truncate max-w-xs">{item.content}</td>

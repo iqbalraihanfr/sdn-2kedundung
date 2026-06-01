@@ -10,7 +10,7 @@ async function main() {
   const lines = fileContent.split('\n')
   const dataLines = lines.slice(6).filter(line => line.trim() !== '' && !line.startsWith(';'))
   
-  const students = []
+  const students: any[] = []
   const uniqueClasses = new Set<string>()
   
   for (const line of dataLines) {

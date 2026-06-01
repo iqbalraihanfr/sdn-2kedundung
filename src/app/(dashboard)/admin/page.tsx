@@ -38,7 +38,7 @@ export default async function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {stats.map((stat) => (
+        {stats.map((stat: any) => (
           <div key={stat.name} className="bg-white dark:bg-zinc-900 p-6 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm flex items-center gap-4">
             <div className={`p-4 rounded-lg ${stat.color}`}>
               <stat.icon className="h-6 w-6" />
@@ -57,7 +57,7 @@ export default async function DashboardPage() {
           <p className="text-zinc-500 text-sm">Belum ada pengumuman.</p>
         ) : (
           <div className="space-y-4">
-            {announcements.slice(0, 5).map((item) => (
+            {announcements.slice(0, 5).map((item: any) => (
               <div key={item.id} className="flex justify-between items-start pb-4 border-b border-zinc-100 dark:border-zinc-800 last:border-0 last:pb-0">
                 <div>
                   <h3 className="font-medium text-zinc-900 dark:text-zinc-100">{item.title}</h3>
