@@ -1,0 +1,151 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// -----------------------------------------------------------------------------
+// USER & ROLE
+// -----------------------------------------------------------------------------
+
+model Profile {
+  id        String   @id // Menggunakan ID dari auth.users Supabase
+  name      String
+  role      String   @default("user") // "admin", "user", "parent"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  announcements Announcement[]
+
+  @@map("profiles")
+}
+
+// -----------------------------------------------------------------------------
+// CMS KONTEN SEKOLAH
+// -----------------------------------------------------------------------------
+
+model SchoolProfile {
+  id           String   @id @default(cuid())
+  description  String   @db.Text
+  contactEmail String?
+  contactPhone String?
+  address      String?  @db.Text
+  updatedAt    DateTime @updatedAt
+
+  @@map("school_profiles")
+}
+
+model Announcement {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   @db.Text
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author Profile @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@map("announcements")
+}
+
+model Gallery {
+  id        String   @id @default(cuid())
+  imageUrl  String
+  caption   String?
+  createdAt DateTime @default(now())
+
+  @@map("galleries")
+}
+
+// -----------------------------------------------------------------------------
+// DATA AKADEMIK
+// -----------------------------------------------------------------------------
+
+model Class {
+  id        String   @id @default(cuid())
+  name      String   // misal: "Kelas 1", "Kelas 2A"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  students  Student[]
+
+  @@map("classes")
+}
+
+model Student {
+  id        String   @id @default(cuid())
+  nisn      String   @unique
+  name      String
+  classId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  class       Class        @relation(fields: [classId], references: [id], onDelete: Cascade)
+  grades      Grade[]
+  attendances Attendance[]
+
+  @@map("students")
+}
+
+model Subject {
+  id        String   @id @default(cuid())
+  name      String   // misal: "Matematika", "Bahasa Indonesia"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  grades    Grade[]
+
+  @@map("subjects")
+}
+
+model Grade {
+  id        String   @id @default(cuid())
+  studentId String
+  subjectId String
+  semester  String   // misal: "Ganjil 2023/2024"
+  score     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  // Seorang siswa hanya punya 1 nilai per mata pelajaran per semester
+  @@unique([studentId, subjectId, semester])
+  @@map("grades")
+}
+
+model Attendance {
+  id        String   @id @default(cuid())
+  studentId String
+  date      DateTime @db.Date
+  status    String   // "HADIR", "SAKIT", "IZIN", "ALPHA"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  // Seorang siswa hanya punya 1 catatan absensi per hari
+  @@unique([studentId, date])
+  @@map("attendances")
+}
+
+// -----------------------------------------------------------------------------
+// Admin Access
+// -----------------------------------------------------------------------------
+
+model AdminWhitelist {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email     String   @unique
+  name      String?
+  role      String   @default("ADMIN") // SUPERADMIN atau ADMIN
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admin_whitelist")
+}
