@@ -42,7 +42,7 @@ export default async function AdminNilaiPage({
         <label className="space-y-2">
           <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Kelas</span>
           <select name="classId" defaultValue={classId} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100">
-            {classes.map((cls) => (
+            {classes.map((cls: any) => (
               <option key={cls.id} value={cls.id}>{cls.name}</option>
             ))}
           </select>
@@ -50,7 +50,7 @@ export default async function AdminNilaiPage({
         <label className="space-y-2">
           <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Mata Pelajaran</span>
           <select name="subjectId" defaultValue={subjectId} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100">
-            {subjects.map((subject) => (
+            {subjects.map((subject: any) => (
               <option key={subject.id} value={subject.id}>{subject.name}</option>
             ))}
           </select>

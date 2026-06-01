@@ -44,7 +44,7 @@ export default async function AdminAbsensiPage({
         <label className="space-y-2">
           <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Kelas</span>
           <select name="classId" defaultValue={classId} className="min-w-52 rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100">
-            {classes.map((cls) => (
+            {classes.map((cls: any) => (
               <option key={cls.id} value={cls.id}>{cls.name}</option>
             ))}
           </select>
