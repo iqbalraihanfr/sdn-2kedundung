@@ -33,7 +33,7 @@ export default async function GaleriPage() {
         </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {galleries.map((item) => (
+          {galleries.map((item: any) => (
             <div key={item.id} className="group relative bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden">
               <div className="aspect-square bg-zinc-100 dark:bg-zinc-800 relative">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
