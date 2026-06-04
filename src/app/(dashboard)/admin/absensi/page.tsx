@@ -28,30 +28,30 @@ export default async function AdminAbsensiPage({
         attendanceQueries.findByClassAndDate(classId, new Date(`${date}T00:00:00`)),
       ])
     : [[], []]
-  const attendanceMap = Object.fromEntries(attendances.map((item: any) => [item.studentId, item.status]))
+  const attendanceMap = Object.fromEntries(attendances.map((item) => [item.studentId, item.status]))
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       <div>
-        <h1 className="flex items-center gap-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+        <h1 className="flex items-center gap-2 text-xl font-bold text-zinc-900 dark:text-zinc-100 sm:text-2xl">
           <CalendarCheck className="h-6 w-6 text-brand-500" />
           Absensi Harian
         </h1>
         <p className="mt-1 text-zinc-500 dark:text-zinc-400">Rekam kehadiran siswa per kelas dan tanggal.</p>
       </div>
 
-      <form className="flex flex-col gap-3 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 sm:flex-row sm:items-end">
-        <label className="space-y-2">
+      <form className="flex flex-col gap-3 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 sm:flex-row sm:flex-wrap sm:items-end">
+        <label className="space-y-2 sm:flex-1 lg:flex-none">
           <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Kelas</span>
-          <select name="classId" defaultValue={classId} className="min-w-52 rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100">
-            {classes.map((cls: any) => (
+          <select name="classId" defaultValue={classId} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 sm:min-w-52">
+            {classes.map((cls) => (
               <option key={cls.id} value={cls.id}>{cls.name}</option>
             ))}
           </select>
         </label>
-        <label className="space-y-2">
+        <label className="space-y-2 sm:flex-1 lg:flex-none">
           <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Tanggal</span>
-          <input type="date" name="date" defaultValue={date} className="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
+          <input type="date" name="date" defaultValue={date} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
         </label>
         <button className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300">Tampilkan</button>
         <Link href="/admin/absensi" className="rounded-lg border border-zinc-300 px-4 py-2 text-center text-sm font-medium text-zinc-700 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800">Reset</Link>

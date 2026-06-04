@@ -20,7 +20,7 @@ export function DataSiswaTable({
   return (
     <div className="section-card overflow-hidden">
       <div className="table-wrapper">
-        <table className="w-full text-sm">
+        <table className="min-w-[900px] w-full text-sm">
           <thead>
             <tr className="bg-primary text-white">
               <th className="w-12 px-4 py-3 text-left font-semibold">No</th>

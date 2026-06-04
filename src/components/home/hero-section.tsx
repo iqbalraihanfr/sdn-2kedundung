@@ -34,7 +34,7 @@ export function HeroSection() {
       />
 
       {/* Content */}
-      <div className="relative z-10 w-full px-6 pt-28 pb-16 sm:px-8 lg:px-14 xl:px-24">
+      <div className="relative z-10 w-full px-4 pb-16 pt-28 sm:px-8 lg:px-14 xl:px-24">
         <div className="max-w-2xl">
           {/* Badge */}
           <div className="animate-fade-in-up mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 opacity-0 backdrop-blur-sm">
@@ -46,7 +46,7 @@ export function HeroSection() {
 
           {/* Heading */}
           <h1 className="animate-fade-in-up opacity-0 animate-delay-100">
-            <span className="block text-5xl font-black tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
+            <span className="block text-4xl font-black tracking-tight text-white min-[380px]:text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
               SIPANDA
             </span>
             <span className="mt-2 block text-lg font-medium text-secondary sm:text-xl md:text-2xl">
@@ -67,7 +67,7 @@ export function HeroSection() {
           <div className="animate-fade-in-up animate-delay-300 mt-8 flex flex-col gap-4 opacity-0 sm:flex-row">
             <Link
               href="/#features"
-              className="group flex items-center justify-center gap-2 rounded-xl bg-secondary px-6 py-3.5 font-semibold !text-white shadow-lg shadow-secondary/20 transition-all duration-200 hover:bg-secondary-light hover:shadow-xl hover:shadow-secondary/30 sm:justify-start"
+              className="group flex items-center justify-center gap-2 rounded-xl bg-secondary px-5 py-3.5 font-semibold !text-white shadow-lg shadow-secondary/20 transition-all duration-200 hover:bg-secondary-light hover:shadow-xl hover:shadow-secondary/30 sm:justify-start sm:px-6"
             >
               <GraduationCap size={20} />
               Lihat Layanan Akademik
@@ -78,7 +78,7 @@ export function HeroSection() {
             </Link>
             <Link
               href="/#visi-misi"
-              className="flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-6 py-3.5 font-medium !text-white backdrop-blur-sm transition-all hover:bg-white/20 sm:justify-start"
+              className="flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3.5 font-medium !text-white backdrop-blur-sm transition-all hover:bg-white/20 sm:justify-start sm:px-6"
             >
               <Info size={18} />
               Tentang Sekolah

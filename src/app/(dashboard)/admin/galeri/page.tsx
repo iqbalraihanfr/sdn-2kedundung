@@ -12,7 +12,7 @@ export default async function GaleriPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
           <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
             <ImageIcon className="h-6 w-6 text-brand-500" />
@@ -20,7 +20,7 @@ export default async function GaleriPage() {
           </h1>
           <p className="text-zinc-500 dark:text-zinc-400 mt-1">Kelola foto-foto kegiatan sekolah.</p>
         </div>
-        <Link href="/admin/galeri/tambah" className="flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-md font-medium text-sm transition-colors shadow-sm">
+        <Link href="/admin/galeri/tambah" className="inline-flex items-center justify-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-brand-700 sm:justify-start">
           <Plus className="h-4 w-4" />
           Tambah Foto
         </Link>
@@ -32,8 +32,8 @@ export default async function GaleriPage() {
           <p>Belum ada foto yang diunggah.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {galleries.map((item: any) => (
+        <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {galleries.map((item) => (
             <div key={item.id} className="group relative bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden">
               <div className="aspect-square bg-zinc-100 dark:bg-zinc-800 relative">
                 {/* eslint-disable-next-line @next/next/no-img-element */}

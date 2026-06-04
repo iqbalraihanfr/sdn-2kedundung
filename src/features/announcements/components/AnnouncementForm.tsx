@@ -22,7 +22,7 @@ export function AnnouncementForm({
   const router = useRouter()
   const action = announcement ? updateAnnouncementAction.bind(null, announcement.id) : createAnnouncementAction
   const [state, formAction, isPending] = useActionState(
-    async (prevState: any, formData: FormData) => {
+    async (_prevState: typeof initialState, formData: FormData) => {
       const result = await action(formData)
       if (result?.success) {
         router.push('/admin/pengumuman')
@@ -35,18 +35,18 @@ export function AnnouncementForm({
 
   return (
     <div className="max-w-2xl">
-      <div className="mb-6 flex items-center gap-4">
+      <div className="mb-6 flex items-start gap-3 sm:items-center sm:gap-4">
         <Link href="/admin/pengumuman" className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full transition-colors">
           <ArrowLeft className="h-5 w-5 text-zinc-500" />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">{announcement ? 'Edit Pengumuman' : 'Tambah Pengumuman'}</h1>
+          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 sm:text-2xl">{announcement ? 'Edit Pengumuman' : 'Tambah Pengumuman'}</h1>
           <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Buat berita atau informasi baru untuk ditampilkan di halaman utama.</p>
         </div>
       </div>
 
       <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-sm">
-        <form action={formAction} className="p-6 space-y-6">
+        <form action={formAction} className="space-y-6 p-4 sm:p-6">
           {state.error && (
             <div className="p-3 bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400 text-sm rounded-md border border-red-200 dark:border-red-500/20">
               {state.error}
@@ -113,11 +113,11 @@ export function AnnouncementForm({
             </div>
           </div>
 
-          <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800 flex justify-end">
+          <div className="flex flex-col border-t border-zinc-200 pt-4 dark:border-zinc-800 sm:flex-row sm:justify-end">
             <button
               type="submit"
               disabled={isPending}
-              className="flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white px-6 py-2 rounded-md font-medium transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center justify-center gap-2 rounded-md bg-brand-600 px-6 py-2 font-medium text-white shadow-sm transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isPending ? (
                 <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />

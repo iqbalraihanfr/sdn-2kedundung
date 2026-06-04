@@ -26,12 +26,12 @@ export default async function AdminNilaiPage({
         gradeQueries.findByClassSubjectSemester(classId, subjectId, semester),
       ])
     : [[], []]
-  const gradeMap = Object.fromEntries(grades.map((item: any) => [item.studentId, item.score]))
+  const gradeMap = Object.fromEntries(grades.map((item) => [item.studentId, item.score]))
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       <div>
-        <h1 className="flex items-center gap-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+        <h1 className="flex items-center gap-2 text-xl font-bold text-zinc-900 dark:text-zinc-100 sm:text-2xl">
           <ClipboardList className="h-6 w-6 text-brand-500" />
           Daftar Nilai
         </h1>
@@ -42,7 +42,7 @@ export default async function AdminNilaiPage({
         <label className="space-y-2">
           <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Kelas</span>
           <select name="classId" defaultValue={classId} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100">
-            {classes.map((cls: any) => (
+            {classes.map((cls) => (
               <option key={cls.id} value={cls.id}>{cls.name}</option>
             ))}
           </select>
@@ -50,7 +50,7 @@ export default async function AdminNilaiPage({
         <label className="space-y-2">
           <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Mata Pelajaran</span>
           <select name="subjectId" defaultValue={subjectId} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100">
-            {subjects.map((subject: any) => (
+            {subjects.map((subject) => (
               <option key={subject.id} value={subject.id}>{subject.name}</option>
             ))}
           </select>

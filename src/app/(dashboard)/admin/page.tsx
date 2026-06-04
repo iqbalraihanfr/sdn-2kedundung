@@ -31,39 +31,39 @@ export default async function DashboardPage() {
   ]
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Dashboard</h1>
+        <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 sm:text-2xl">Dashboard</h1>
         <p className="text-zinc-500 dark:text-zinc-400 mt-1">Ringkasan statistik sistem informasi SDN Kedundung 2</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {stats.map((stat: any) => (
-          <div key={stat.name} className="bg-white dark:bg-zinc-900 p-6 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm flex items-center gap-4">
-            <div className={`p-4 rounded-lg ${stat.color}`}>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {stats.map((stat) => (
+          <div key={stat.name} className="flex items-center gap-4 rounded-lg border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 sm:p-6">
+            <div className={`rounded-lg p-3 sm:p-4 ${stat.color}`}>
               <stat.icon className="h-6 w-6" />
             </div>
-            <div>
+            <div className="min-w-0">
               <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">{stat.name}</p>
-              <p className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">{stat.value}</p>
+              <p className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 sm:text-3xl">{stat.value}</p>
             </div>
           </div>
         ))}
       </div>
       
-      <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm">
+      <div className="rounded-lg border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 sm:p-6">
         <h2 className="text-lg font-bold mb-4">Pengumuman Terbaru</h2>
         {announcements.length === 0 ? (
           <p className="text-zinc-500 text-sm">Belum ada pengumuman.</p>
         ) : (
           <div className="space-y-4">
-            {announcements.slice(0, 5).map((item: any) => (
-              <div key={item.id} className="flex justify-between items-start pb-4 border-b border-zinc-100 dark:border-zinc-800 last:border-0 last:pb-0">
-                <div>
+            {announcements.slice(0, 5).map((item) => (
+              <div key={item.id} className="flex flex-col gap-2 border-b border-zinc-100 pb-4 last:border-0 last:pb-0 dark:border-zinc-800 sm:flex-row sm:items-start sm:justify-between">
+                <div className="min-w-0">
                   <h3 className="font-medium text-zinc-900 dark:text-zinc-100">{item.title}</h3>
-                  <p className="text-sm text-zinc-500 truncate max-w-xl">{item.content}</p>
+                  <p className="max-w-xl truncate text-sm text-zinc-500">{item.content}</p>
                 </div>
-                <span className="text-xs text-zinc-400">{new Date(item.createdAt).toLocaleDateString('id-ID')}</span>
+                <span className="shrink-0 text-xs text-zinc-400">{new Date(item.createdAt).toLocaleDateString('id-ID')}</span>
               </div>
             ))}
           </div>

@@ -39,8 +39,8 @@ export function LoginForm() {
       
       router.push('/admin')
       
-    } catch (error: any) {
-      setErrorMsg(error.message || 'Gagal masuk dengan Google.')
+    } catch (error) {
+      setErrorMsg(error instanceof Error ? error.message : 'Gagal masuk dengan Google.')
       setIsPending(false)
     }
   }

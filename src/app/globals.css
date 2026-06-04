@@ -41,6 +41,11 @@ a {
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
 }
 
 /* Custom scrollbar */
@@ -115,6 +120,14 @@ html {
 
   .page-hero {
     padding: 2rem;
+  }
+}
+
+@media (max-width: 639px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
   }
 }
 

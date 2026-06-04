@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { BookOpen, CalendarCheck, ClipboardList, GraduationCap, Image as ImageIcon, LayoutDashboard, LogOut, Megaphone, School, Trophy, Users } from 'lucide-react'
+import { BookOpen, CalendarCheck, ClipboardList, GraduationCap, Image as ImageIcon, LayoutDashboard, LogOut, Megaphone, School, Trophy, Users, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { logoutAction } from '@/features/auth/actions'
 
@@ -20,28 +20,56 @@ const navItems = [
   { name: 'Profil Sekolah', href: '/admin/profil', icon: School },
 ]
 
-export function Sidebar() {
+export function Sidebar({
+  isOpen = false,
+  onClose,
+}: {
+  isOpen?: boolean
+  onClose?: () => void
+}) {
   const pathname = usePathname()
   const router = useRouter()
 
   const handleLogout = async () => {
     await logoutAction()
+    onClose?.()
     router.push('/login')
   }
 
   return (
-    <aside className="w-64 bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 flex flex-col min-h-screen sticky top-0">
-      <div className="h-16 flex items-center px-6 border-b border-zinc-200 dark:border-zinc-800">
-        <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">SIPANDA Admin</h2>
-      </div>
+    <>
+      <div
+        className={`fixed inset-0 z-30 bg-zinc-950/40 transition-opacity lg:hidden ${
+          isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
+        }`}
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <aside
+        className={`fixed inset-y-0 left-0 z-40 flex min-h-screen w-72 max-w-[85vw] flex-col border-r border-zinc-200 bg-white shadow-xl transition-transform duration-200 dark:border-zinc-800 dark:bg-zinc-900 lg:sticky lg:top-0 lg:z-auto lg:w-64 lg:max-w-none lg:translate-x-0 lg:shadow-none ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="flex h-16 items-center justify-between border-b border-zinc-200 px-5 dark:border-zinc-800 lg:px-6">
+          <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">SIPANDA Admin</h2>
+          <button
+            type="button"
+            onClick={onClose}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100 lg:hidden"
+            aria-label="Tutup menu admin"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
 
-      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+      <nav className="flex-1 space-y-1 overflow-y-auto p-4">
         {navItems.map((item) => {
           const isActive = pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href))
           return (
             <Link
               key={item.name}
               href={item.href}
+              onClick={onClose}
               className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 isActive
                   ? 'bg-brand-50 text-brand-700 dark:bg-brand-500/10 dark:text-brand-300'
@@ -64,6 +92,7 @@ export function Sidebar() {
           Keluar
         </button>
       </div>
-    </aside>
+      </aside>
+    </>
   )
 }

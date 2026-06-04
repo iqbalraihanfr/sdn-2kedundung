@@ -10,10 +10,10 @@ export default async function ProfilPage() {
   const profile = await schoolProfileService.getProfile()
 
   return (
-    <div className="max-w-3xl space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="max-w-3xl space-y-5 sm:space-y-6">
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+          <h1 className="flex items-center gap-2 text-xl font-bold text-zinc-900 dark:text-zinc-100 sm:text-2xl">
             <School className="h-6 w-6 text-brand-500" />
             Profil Sekolah
           </h1>

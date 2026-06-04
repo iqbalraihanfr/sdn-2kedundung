@@ -20,13 +20,14 @@ import {
   Phone,
   ChevronDown,
   Star,
+  type LucideIcon,
 } from "lucide-react";
 
 type NavItem = {
   href?: string;
   label: string;
-  icon: any;
-  children?: { href: string; label: string; icon: any }[];
+  icon: LucideIcon;
+  children?: { href: string; label: string; icon: LucideIcon }[];
 };
 
 const navItems: NavItem[] = [
@@ -106,10 +107,10 @@ export function Navbar() {
           : "bg-primary/90 backdrop-blur-md"
         }`}
     >
-      <div className="w-full px-6 sm:px-8 lg:px-14 xl:px-24">
+      <div className="w-full px-4 sm:px-8 lg:px-14 xl:px-24">
         <div className="flex h-20 items-center justify-between transition-all duration-300">
           <Link href="/" className="group flex shrink-0 items-center gap-2.5 sm:gap-3">
-            <div className="relative h-16 w-16 shrink-0 overflow-hidden transition-transform duration-300 group-hover:scale-105">
+            <div className="relative h-14 w-14 shrink-0 overflow-hidden transition-transform duration-300 group-hover:scale-105 sm:h-16 sm:w-16">
               <Image
                 src="/images/logo-sdn2kedundung.png"
                 alt="Logo SDN Kedundung 2"
@@ -222,8 +223,8 @@ export function Navbar() {
         className={`overflow-hidden transition-all duration-300 lg:hidden ${isOpen ? "max-h-[80vh] overflow-y-auto" : "max-h-0"
           }`}
       >
-        <div className="mx-4 mt-2 mb-4 rounded-2xl border border-border bg-white shadow-xl sm:mx-6 lg:mx-8">
-          <div className="space-y-1 px-4 py-3">
+        <div className="mx-3 mb-4 mt-2 rounded-2xl border border-border bg-white shadow-xl sm:mx-6 lg:mx-8">
+          <div className="space-y-1 px-3 py-3 sm:px-4">
             {navItems.map((item) => {
               const isActive = item.href
                 ? pathname === item.href

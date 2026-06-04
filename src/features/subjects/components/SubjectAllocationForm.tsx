@@ -30,7 +30,7 @@ export function SubjectAllocationForm({
           </label>
         ))}
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
         <button type="submit" disabled={isPending} className="rounded-md bg-zinc-900 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-zinc-700 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300">
           {isPending ? 'Menyimpan...' : 'Simpan Alokasi'}
         </button>

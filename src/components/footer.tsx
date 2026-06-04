@@ -31,11 +31,11 @@ export function Footer() {
               Platform digital terpadu untuk pengelolaan data siswa, absensi, dan nilai di SDN Kedundung 2, Kota Mojokerto.
             </p>
             <div className="space-y-3">
-              <div className="flex items-center gap-2.5 text-sm text-white/70">
+              <div className="flex min-w-0 items-center gap-2.5 text-sm text-white/70">
                 <Mail size={16} className="shrink-0 text-secondary" />
-                <span>sdnkedundung2mojokerto@gmail.com</span>
+                <span className="break-all">sdnkedundung2mojokerto@gmail.com</span>
               </div>
-              <div className="flex items-center gap-2.5 text-sm text-white/70">
+              <div className="flex min-w-0 items-center gap-2.5 text-sm text-white/70">
                 <Phone size={16} className="shrink-0 text-secondary" />
                 <span>0812-1650-3267 (Yatik Hartini, S.Pd, M.Pd)</span>
               </div>

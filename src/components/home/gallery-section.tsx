@@ -1,5 +1,4 @@
 import { galleryService } from "@/features/galleries/services";
-import { Image as ImageIcon } from "lucide-react";
 
 export async function GallerySection() {
   const galleries = await galleryService.getAll();
@@ -20,7 +19,7 @@ export async function GallerySection() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {galleries.map((item) => (
             <div key={item.id} className="group relative overflow-hidden rounded-xl border border-border shadow-sm aspect-square bg-surface-alt">
               {/* eslint-disable-next-line @next/next/no-img-element */}

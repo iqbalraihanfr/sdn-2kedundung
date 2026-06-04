@@ -13,7 +13,7 @@ type SchoolProfileFormData = Partial<{
 
 export function SchoolProfileForm({ initialData }: { initialData: SchoolProfileFormData | null }) {
   const [state, formAction, isPending] = useActionState(
-    async (prevState: any, formData: FormData) => {
+    async (_prevState: typeof initialState, formData: FormData) => {
       const result = await updateSchoolProfileAction(formData)
       if (result?.success) {
         return { success: true, error: '' }
@@ -24,7 +24,7 @@ export function SchoolProfileForm({ initialData }: { initialData: SchoolProfileF
   )
 
   return (
-    <form action={formAction} className="p-6 space-y-6">
+    <form action={formAction} className="space-y-6 p-4 sm:p-6">
       {state.error && (
         <div className="p-3 bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400 text-sm rounded-md border border-red-200 dark:border-red-500/20">
           {state.error}
@@ -139,11 +139,11 @@ export function SchoolProfileForm({ initialData }: { initialData: SchoolProfileF
         />
       </div>
 
-      <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800 flex justify-end">
+      <div className="flex flex-col border-t border-zinc-200 pt-4 dark:border-zinc-800 sm:flex-row sm:justify-end">
         <button
           type="submit"
           disabled={isPending}
-          className="flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white px-6 py-2 rounded-md font-medium transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center justify-center gap-2 rounded-md bg-brand-600 px-6 py-2 font-medium text-white shadow-sm transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isPending ? (
             <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
