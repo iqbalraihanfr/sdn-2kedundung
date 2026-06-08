@@ -1,7 +1,10 @@
 import { galleryService } from "@/features/galleries/services";
 
 export async function GallerySection() {
-  const galleries = await galleryService.getAll();
+  const galleries = await galleryService.getAll().catch((error) => {
+    console.error("Gagal memuat galeri dari database:", error);
+    return [];
+  });
 
   if (galleries.length === 0) {
     return null;

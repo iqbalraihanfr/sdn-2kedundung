@@ -2,7 +2,10 @@ import { Bell, Calendar } from "lucide-react";
 import { announcementService } from "@/features/announcements/services";
 
 export async function InformasiSection() {
-  const announcements = await announcementService.getPublished(6);
+  const announcements = await announcementService.getPublished(6).catch((error) => {
+    console.error("Gagal memuat pengumuman dari database:", error);
+    return [];
+  });
 
   return (
     <section id="informasi" className="bg-surface-alt pt-10 pb-24">

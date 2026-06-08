@@ -5,8 +5,14 @@ export const revalidate = 3600;
 
 export default async function DataSiswaPage() {
   const [classes, students] = await Promise.all([
-    classQueries.findAll(),
-    studentService.getAll(),
+    classQueries.findAll().catch((error) => {
+      console.error("Gagal memuat data kelas dari database:", error);
+      return [];
+    }),
+    studentService.getAll().catch((error) => {
+      console.error("Gagal memuat data siswa dari database:", error);
+      return [];
+    }),
   ]);
 
   return (

@@ -7,7 +7,10 @@ export const metadata = {
 }
 
 export default async function TentangSekolahPage() {
-  const profile = await schoolProfileService.getProfile()
+  const profile = await schoolProfileService.getProfile().catch((error) => {
+    console.error('Gagal memuat profil sekolah dari database:', error)
+    return null
+  })
   const missions = profile?.mission?.split('\n').map((item) => item.trim()).filter(Boolean) ?? []
 
   return (
