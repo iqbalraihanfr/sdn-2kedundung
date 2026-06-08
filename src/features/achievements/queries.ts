@@ -8,6 +8,7 @@ function toData(input: AchievementInput) {
     level: input.level,
     rank: input.rank || null,
     eventName: input.eventName,
+    imageUrl: input.imageUrl || null,
     date: input.date ? new Date(`${input.date}T00:00:00`) : null,
     note: input.note || null,
   }

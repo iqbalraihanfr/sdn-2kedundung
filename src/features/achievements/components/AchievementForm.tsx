@@ -19,6 +19,7 @@ export function AchievementForm({
     level: string
     rank: string | null
     eventName: string
+    imageUrl: string | null
     date: Date | null
     note: string | null
   } | null
@@ -63,6 +64,10 @@ export function AchievementForm({
           <label className="space-y-2">
             <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Nama Lomba</span>
             <input name="eventName" required defaultValue={achievement?.eventName ?? ''} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
+          </label>
+          <label className="space-y-2">
+            <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">URL Gambar</span>
+            <input name="imageUrl" defaultValue={achievement?.imageUrl ?? ''} placeholder="/images/prestasi-juara1-menggambar.jpeg" className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
           </label>
           <label className="space-y-2">
             <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Tanggal</span>

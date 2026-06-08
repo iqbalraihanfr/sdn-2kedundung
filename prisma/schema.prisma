@@ -168,6 +168,7 @@ model Achievement {
   level     String
   rank      String?
   eventName String
+  imageUrl  String?
   date      DateTime? @db.Date
   note      String?   @db.Text
   createdAt DateTime  @default(now())

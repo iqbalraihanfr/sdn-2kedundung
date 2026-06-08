@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Pencil } from 'lucide-react'
 import { achievementService } from '../services'
 import { DeleteAchievementButton } from './DeleteAchievementButton'
@@ -32,8 +33,17 @@ export async function AchievementList() {
                     <p className="text-xs text-zinc-500">{item.student.class.name}</p>
                   </td>
                   <td className="px-4 py-3">
-                    <p className="font-medium text-zinc-800 dark:text-zinc-100">{item.title}</p>
-                    <p className="text-xs text-zinc-500">{item.rank || '-'} - {item.eventName}</p>
+                    <div className="flex items-center gap-3">
+                      {item.imageUrl && (
+                        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-zinc-100">
+                          <Image src={item.imageUrl} alt={item.title} fill sizes="48px" className="object-cover" />
+                        </div>
+                      )}
+                      <div>
+                        <p className="font-medium text-zinc-800 dark:text-zinc-100">{item.title}</p>
+                        <p className="text-xs text-zinc-500">{item.rank || '-'} - {item.eventName}</p>
+                      </div>
+                    </div>
                   </td>
                   <td className="px-4 py-3 text-zinc-600 dark:text-zinc-300">{item.level}</td>
                   <td className="px-4 py-3 text-zinc-500">{item.date ? item.date.toLocaleDateString('id-ID') : '-'}</td>

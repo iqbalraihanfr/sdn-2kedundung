@@ -30,17 +30,27 @@ export async function PrestasiSection() {
         {dynamicHighlights.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2">
             {dynamicHighlights.map((item) => (
-              <div key={item.id} className="rounded-2xl border border-border bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-secondary/10 text-secondary">
-                  <Trophy size={22} />
+              <div key={item.id} className="group overflow-hidden rounded-2xl border border-border bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                {item.imageUrl ? (
+                  <div className="relative aspect-square overflow-hidden">
+                    <Image src={item.imageUrl} alt={item.title} fill sizes="(max-width: 640px) 100vw, 50vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                  </div>
+                ) : (
+                  <div className="flex aspect-square items-center justify-center bg-secondary/10 text-secondary">
+                    <Trophy size={48} />
+                  </div>
+                )}
+                <div className="p-5">
+                  <div className="mb-2 flex items-center gap-2">
+                    <Trophy size={16} className="text-secondary" />
+                    <span className="text-sm font-semibold text-secondary">{item.student.name}</span>
+                    {item.student.class?.name && <span className="text-xs text-text-secondary">&middot; {item.student.class.name}</span>}
+                  </div>
+                  <h3 className="text-lg font-bold text-primary">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-text-secondary">
+                    {item.rank ? `${item.rank} - ` : ''}{item.eventName} tingkat {item.level}
+                  </p>
                 </div>
-                <p className="text-sm font-semibold text-secondary">
-                  {item.student.name} {item.student.class?.name ? `· ${item.student.class.name}` : ''}
-                </p>
-                <h3 className="mt-2 text-lg font-bold text-primary">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-text-secondary">
-                  {item.rank ? `${item.rank} - ` : ''}{item.eventName} tingkat {item.level}
-                </p>
               </div>
             ))}
           </div>
