@@ -2,10 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Trophy } from "lucide-react";
 
-import { prestasiImages } from "@/data";
 import { achievementService } from "@/features/achievements/services";
-
-const highlights = prestasiImages.slice(0, 4);
 
 export async function PrestasiSection() {
   const achievements = await achievementService.getAll().catch(() => []);
@@ -55,22 +52,8 @@ export async function PrestasiSection() {
             ))}
           </div>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2">
-            {highlights.map((item) => (
-              <div key={item.src} className="group overflow-hidden rounded-2xl border border-border bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                <div className="relative aspect-square overflow-hidden">
-                  <Image src={item.src} alt={item.alt} fill sizes="(max-width: 640px) 100vw, 50vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
-                </div>
-                <div className="p-5">
-                  <div className="mb-2 flex items-center gap-2">
-                    <Trophy size={16} className="text-secondary" />
-                    <span className="text-sm font-semibold text-secondary">{item.siswa}</span>
-                    {item.kelas && <span className="text-xs text-text-secondary">&middot; {item.kelas}</span>}
-                  </div>
-                  <p className="text-sm leading-relaxed text-text-secondary">{item.prestasi}</p>
-                </div>
-              </div>
-            ))}
+          <div className="text-center py-10">
+            <p className="text-text-secondary">Belum ada data prestasi untuk saat ini.</p>
           </div>
         )}
 
