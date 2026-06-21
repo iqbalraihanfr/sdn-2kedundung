@@ -6,7 +6,7 @@ import { achievementService } from "@/features/achievements/services";
 
 export async function PrestasiSection() {
   const achievements = await achievementService.getAll().catch(() => []);
-  const dynamicHighlights = achievements.slice(0, 4);
+  const dynamicHighlights = achievements.slice(0, 3);
 
   return (
     <section id="prestasi" className="bg-surface-alt py-20">
@@ -25,27 +25,29 @@ export async function PrestasiSection() {
         </div>
 
         {dynamicHighlights.length > 0 ? (
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {dynamicHighlights.map((item) => (
-              <div key={item.id} className="group overflow-hidden rounded-2xl border border-border bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div key={item.id} className="group relative aspect-[4/5] overflow-hidden rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                 {item.imageUrl ? (
-                  <div className="relative aspect-square overflow-hidden">
-                    <Image src={item.imageUrl} alt={item.title} fill sizes="(max-width: 640px) 100vw, 50vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
-                  </div>
+                  <Image src={item.imageUrl} alt={item.title} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-110" />
                 ) : (
-                  <div className="flex aspect-square items-center justify-center bg-secondary/10 text-secondary">
+                  <div className="flex h-full w-full items-center justify-center bg-primary/10 text-primary">
                     <Trophy size={48} />
                   </div>
                 )}
-                <div className="p-5">
-                  <div className="mb-2 flex items-center gap-2">
-                    <Trophy size={16} className="text-secondary" />
-                    <span className="text-sm font-semibold text-secondary">{item.student.name}</span>
-                    {item.student.class?.name && <span className="text-xs text-text-secondary">&middot; {item.student.class.name}</span>}
+                
+                {/* Gradient Overlay */}
+                <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/95 via-black/60 to-transparent transition-opacity duration-300 group-hover:from-black"></div>
+
+                {/* Content */}
+                <div className="absolute inset-0 flex flex-col justify-end p-5">
+                  <div className="mb-2 flex flex-wrap items-center gap-1.5">
+                    <Trophy size={14} className="text-secondary shrink-0" />
+                    <span className="text-xs font-medium text-white/90 line-clamp-1">{item.student.name}</span>
                   </div>
-                  <h3 className="text-lg font-bold text-primary">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-text-secondary">
-                    {item.rank ? `${item.rank} - ` : ''}{item.eventName} tingkat {item.level}
+                  <h3 className="text-base font-bold text-white line-clamp-2">{item.title}</h3>
+                  <p className="mt-1.5 text-xs leading-relaxed text-white/80 line-clamp-2">
+                    {item.rank ? `${item.rank} - ` : ''}{item.eventName}
                   </p>
                 </div>
               </div>

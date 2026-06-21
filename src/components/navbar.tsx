@@ -158,11 +158,6 @@ export function Navbar() {
                 return (
                   <div key={item.label} className="group/dropdown relative">
                     <button className={itemClass}>
-                      <Icon
-                        size={18}
-                        className={`transition-transform duration-300 ${isActive ? "scale-110" : "group-hover/dropdown:scale-110"
-                          }`}
-                      />
                       {item.label}
                       <ChevronDown size={14} className="transition-transform duration-300 group-hover/dropdown:rotate-180" />
                     </button>
@@ -180,7 +175,6 @@ export function Navbar() {
                                 : "text-text-secondary hover:bg-primary/5 hover:text-primary"
                                 }`}
                             >
-                              <ChildIcon size={18} />
                               {child.label}
                             </Link>
                           );
@@ -197,11 +191,6 @@ export function Navbar() {
                   href={item.href!}
                   className={itemClass}
                 >
-                  <Icon
-                    size={18}
-                    className={`transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-110"
-                      }`}
-                  />
                   {item.label}
                 </Link>
               );
@@ -243,7 +232,6 @@ export function Navbar() {
                         }`}
                     >
                       <div className="flex items-center gap-3">
-                        <Icon size={20} />
                         {item.label}
                       </div>
                       <ChevronDown size={18} className={`transition-transform duration-300 ${isOpenMobile ? "rotate-180" : ""}`} />
@@ -263,7 +251,6 @@ export function Navbar() {
                                 : "text-text-secondary hover:bg-primary/5 hover:text-primary"
                                 }`}
                             >
-                              <ChildIcon size={18} />
                               {child.label}
                             </Link>
                           );
@@ -284,7 +271,6 @@ export function Navbar() {
                     : "text-text-secondary hover:bg-primary/5 hover:text-primary"
                     }`}
                 >
-                  <Icon size={20} />
                   {item.label}
                 </Link>
               );
