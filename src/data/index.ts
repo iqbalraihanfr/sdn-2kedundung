@@ -37,7 +37,7 @@ export const homeFeatures = [
   {
     icon: ClipboardList,
     title: "Absensi Siswa",
-    desc: "Rekap kehadiran siswa perkelas dan per bulan",
+    desc: "Rekap kehadiran siswa per kelas dan per bulan",
     href: "/absensi",
     color: "from-emerald-500 to-emerald-600",
   },
