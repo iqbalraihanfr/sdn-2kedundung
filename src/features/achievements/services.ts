@@ -6,6 +6,16 @@ export const achievementService = {
     return achievementQueries.findAll()
   },
 
+  async getPaginated({ page = 1, limit = 10 }: { page?: number; limit?: number }) {
+    const skip = (page - 1) * limit
+    const [data, total] = await Promise.all([
+      achievementQueries.findPaginated({ skip, take: limit }),
+      achievementQueries.countAll(),
+    ])
+    const totalPages = Math.ceil(total / limit)
+    return { data, total, totalPages }
+  },
+
   async getById(id: string) {
     const achievement = await achievementQueries.findById(id)
     if (!achievement) throw new Error('Prestasi tidak ditemukan')

@@ -1,27 +1,38 @@
 import { db } from '@/lib/db'
 
 export const attendanceQueries = {
-  findByClassAndDate: (classId: string, date: Date) => {
+  findByClassAndMonth: (classId: string, monthYear: string) => {
     return db.attendance.findMany({
       where: {
-        date,
+        monthYear,
         student: { classId },
       },
       include: { student: true },
     })
   },
 
-  upsertMany: async (records: { studentId: string; date: Date; status: string }[]) => {
+  findByStudent: (studentId: string) => {
+    return db.attendance.findMany({
+      where: { studentId },
+    })
+  },
+
+  upsertMany: async (records: { studentId: string; monthYear: string; hadir: number; sakit: number; izin: number; alpha: number }[]) => {
     return db.$transaction(
       records.map((record) =>
         db.attendance.upsert({
           where: {
-            studentId_date: {
+            studentId_monthYear: {
               studentId: record.studentId,
-              date: record.date,
+              monthYear: record.monthYear,
             },
           },
-          update: { status: record.status },
+          update: { 
+            hadir: record.hadir,
+            sakit: record.sakit,
+            izin: record.izin,
+            alpha: record.alpha
+          },
           create: record,
         })
       )

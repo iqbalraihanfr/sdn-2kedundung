@@ -93,6 +93,21 @@ model Student {
   nisn      String   @unique
   name      String
   classId   String
+
+  nipd        String?
+  gender      String?
+  birthPlace  String?
+  birthDate   DateTime? @db.Date
+  nik         String?
+  religion    String?
+  address     String?   @db.Text
+  village     String?
+  district    String?
+  fatherName  String?
+  fatherJob   String?
+  motherName  String?
+  ijazahUrl   String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -134,6 +149,10 @@ model Grade {
   studentId String
   subjectId String
   semester  String   // misal: "Ganjil 2023/2024"
+  uh1       Float?
+  uh2       Float?
+  uh3       Float?
+  uas       Float?
   score     Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -149,15 +168,18 @@ model Grade {
 model Attendance {
   id        String   @id @default(cuid())
   studentId String
-  date      DateTime @db.Date
-  status    String   // "HADIR", "SAKIT", "IZIN", "ALPHA"
+  monthYear String   // "Januari 2026"
+  hadir     Int
+  sakit     Int
+  izin      Int
+  alpha     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
-  // Seorang siswa hanya punya 1 catatan absensi per hari
-  @@unique([studentId, date])
+  // Seorang siswa hanya punya 1 catatan absensi per bulan per tahun
+  @@unique([studentId, monthYear])
   @@map("attendances")
 }
 

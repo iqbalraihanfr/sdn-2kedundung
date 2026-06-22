@@ -12,7 +12,7 @@ export default async function TambahSiswaPage() {
   const classes = await classQueries.findAll()
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 sm:space-y-8 animate-fade-in-up">
       <div>
         <Link
           href="/admin/data-siswa"
@@ -21,7 +21,7 @@ export default async function TambahSiswaPage() {
           <ArrowLeft className="w-4 h-4" />
           Kembali ke Data Siswa
         </Link>
-        <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Tambah Siswa</h1>
+        <h1 className="text-3xl font-bold text-primary">Tambah Siswa</h1>
         <p className="text-zinc-500 dark:text-zinc-400 mt-1">Masukkan data siswa baru ke dalam sistem.</p>
       </div>
 

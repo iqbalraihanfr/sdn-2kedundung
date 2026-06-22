@@ -28,7 +28,7 @@ export function DataSiswaFilters({
             placeholder="Cari nama siswa, orang tua..."
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full rounded-xl bg-surface-alt py-2.5 pl-10 pr-4 text-sm border-0 focus:outline-none focus:ring-2 focus:ring-primary/20"
+            className="w-full h-[46px] rounded-xl bg-surface-alt py-2.5 pl-10 pr-4 text-sm border-0 focus:outline-none focus:ring-2 focus:ring-primary/20"
           />
         </div>
         <div className="relative sm:w-44">
@@ -39,7 +39,7 @@ export function DataSiswaFilters({
           <select
             value={kelas}
             onChange={(e) => onKelasChange(e.target.value)}
-            className="w-full appearance-none cursor-pointer rounded-xl border-0 bg-surface-alt py-2.5 pl-9 pr-8 text-sm font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            className="w-full h-[46px] appearance-none cursor-pointer rounded-xl border-0 bg-surface-alt py-2.5 pl-9 pr-8 text-sm font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
           >
             {kelasList.map((k) => (
               <option key={k} value={k}>

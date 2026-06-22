@@ -1,10 +1,10 @@
-import Link from 'next/link'
 import { ClipboardList } from 'lucide-react'
 import { classQueries } from '@/features/classes/queries'
 import { studentService } from '@/features/students/services'
 import { subjectService } from '@/features/subjects/services'
 import { gradeQueries } from '@/features/grades/queries'
-import { GradeTable } from '@/features/grades/components/GradeTable'
+import { GradeUploadClient } from '@/features/grades/components/GradeUploadClient'
+import { GradeFilter } from '@/features/grades/components/GradeFilter'
 
 export const metadata = {
   title: 'Daftar Nilai | SIPANDA Admin',
@@ -26,47 +26,28 @@ export default async function AdminNilaiPage({
         gradeQueries.findByClassSubjectSemester(classId, subjectId, semester),
       ])
     : [[], []]
-  const gradeMap = Object.fromEntries(grades.map((item) => [item.studentId, item.score]))
+  const gradeMap = Object.fromEntries(grades.map((item) => [item.studentId, item]))
 
   return (
     <div className="space-y-5 sm:space-y-6">
-      <div>
-        <h1 className="flex items-center gap-2 text-xl font-bold text-zinc-900 dark:text-zinc-100 sm:text-2xl">
-          <ClipboardList className="h-6 w-6 text-brand-500" />
-          Daftar Nilai
-        </h1>
-        <p className="mt-1 text-zinc-500 dark:text-zinc-400">Input nilai siswa per kelas, mata pelajaran, dan semester.</p>
+      <div className="page-hero animate-fade-in-up">
+        <div className="flex items-center gap-3">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 shadow-lg shadow-orange-500/20">
+            <ClipboardList size={24} className="text-white" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-primary sm:text-4xl">Daftar Nilai</h1>
+            <p className="mt-1 text-sm text-text-secondary sm:text-base">Upload nilai siswa via file Excel per kelas, mata pelajaran, dan semester.</p>
+          </div>
+        </div>
       </div>
 
-      <form className="grid gap-3 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 sm:grid-cols-2 lg:grid-cols-5 lg:items-end">
-        <label className="space-y-2">
-          <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Kelas</span>
-          <select name="classId" defaultValue={classId} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100">
-            {classes.map((cls) => (
-              <option key={cls.id} value={cls.id}>{cls.name}</option>
-            ))}
-          </select>
-        </label>
-        <label className="space-y-2">
-          <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Mata Pelajaran</span>
-          <select name="subjectId" defaultValue={subjectId} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100">
-            {subjects.map((subject) => (
-              <option key={subject.id} value={subject.id}>{subject.name}</option>
-            ))}
-          </select>
-        </label>
-        <label className="space-y-2">
-          <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Semester</span>
-          <input name="semester" defaultValue={semester} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
-        </label>
-        <button className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300">Tampilkan</button>
-        <Link href="/admin/nilai" className="rounded-lg border border-zinc-300 px-4 py-2 text-center text-sm font-medium text-zinc-700 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800">Reset</Link>
-      </form>
+      <GradeFilter classes={classes} subjects={subjects} classId={classId} subjectId={subjectId} semester={semester} />
 
       {subjectId ? (
-        <GradeTable subjectId={subjectId} semester={semester} students={students} gradeMap={gradeMap} />
+        <GradeUploadClient subjectId={subjectId} semester={semester} students={students} gradeMap={gradeMap} />
       ) : (
-        <div className="rounded-xl border border-zinc-200 bg-white p-10 text-center text-zinc-500 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400">
+        <div className="section-card p-10 text-center text-text-muted animate-fade-in-up animate-delay-200">
           Tambahkan mata pelajaran terlebih dahulu.
         </div>
       )}

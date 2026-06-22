@@ -9,11 +9,12 @@ export default async function DashboardLayout({
 }) {
   const cookieStore = await cookies()
   const session = cookieStore.get('sipanda-auth')
+  const photoSession = cookieStore.get('sipanda-photo')
 
   // Guard untuk proteksi route di sisi server (meskipun middleware/proxy.ts sudah mengecek)
   if (!session) {
     redirect('/login')
   }
 
-  return <DashboardShell email={session.value}>{children}</DashboardShell>
+  return <DashboardShell email={session.value} photoURL={photoSession?.value}>{children}</DashboardShell>
 }

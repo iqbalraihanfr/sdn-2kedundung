@@ -3,10 +3,28 @@ import type { StudentInput } from './schemas'
 
 export const studentService = {
   async getAll(classId?: string) {
-    return studentQueries.findAll(classId)
+    return studentQueries.findAll({ classId, limit: 10000 })
+  },
+  async getPaginated(params?: { classId?: string; search?: string; sortBy?: string; sortOrder?: 'asc' | 'desc'; page?: number; limit?: number }) {
+    const limit = params?.limit || 10
+    const [data, total] = await Promise.all([
+      studentQueries.findAll(params),
+      studentQueries.countAll(params)
+    ])
+    return {
+      data,
+      total,
+      page: params?.page || 1,
+      totalPages: Math.ceil(total / limit)
+    }
   },
   async getById(id: string) {
     const student = await studentQueries.findById(id)
+    if (!student) throw new Error('Siswa tidak ditemukan')
+    return student
+  },
+  async getByNisn(nisn: string) {
+    const student = await studentQueries.findByNisn(nisn)
     if (!student) throw new Error('Siswa tidak ditemukan')
     return student
   },
@@ -26,5 +44,9 @@ export const studentService = {
   async delete(id: string) {
     await this.getById(id)
     return studentQueries.delete(id)
+  },
+  async updateIjazahUrl(id: string, ijazahUrl: string) {
+    await this.getById(id)
+    return studentQueries.update(id, { ijazahUrl } as any)
   },
 }

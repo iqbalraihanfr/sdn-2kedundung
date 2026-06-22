@@ -22,6 +22,19 @@ export const achievementQueries = {
     })
   },
 
+  findPaginated: ({ skip, take }: { skip: number; take: number }) => {
+    return db.achievement.findMany({
+      skip,
+      take,
+      include: { student: { include: { class: true } } },
+      orderBy: [{ date: 'desc' }, { createdAt: 'desc' }],
+    })
+  },
+
+  countAll: () => {
+    return db.achievement.count()
+  },
+
   findById: (id: string) => {
     return db.achievement.findUnique({
       where: { id },

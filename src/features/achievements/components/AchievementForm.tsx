@@ -1,9 +1,10 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useActionState, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createAchievementAction, updateAchievementAction } from '../actions'
+import { Image as ImageIcon, UploadCloud } from 'lucide-react'
 
 const initialState = { error: '', success: false }
 
@@ -25,7 +26,14 @@ export function AchievementForm({
   } | null
 }) {
   const router = useRouter()
+  const [previewUrl, setPreviewUrl] = useState<string | null>(achievement?.imageUrl || null)
+  const initialStudentName = students.find(s => s.id === achievement?.studentId)?.name || ''
+  const [search, setSearch] = useState(initialStudentName)
+  const [selectedStudentId, setSelectedStudentId] = useState(achievement?.studentId || '')
+  const [showDropdown, setShowDropdown] = useState(false)
+  
   const action = achievement ? updateAchievementAction.bind(null, achievement.id) : createAchievementAction
+  
   const [state, formAction, isPending] = useActionState(async (_prev: typeof initialState, formData: FormData) => {
     const result = await action(formData)
     if (result?.error) return { error: result.error, success: false }
@@ -33,56 +41,124 @@ export function AchievementForm({
     return { error: '', success: true }
   }, initialState)
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      const url = URL.createObjectURL(file)
+      setPreviewUrl(url)
+    } else {
+      setPreviewUrl(achievement?.imageUrl || null)
+    }
+  }
+
   return (
-    <div className="max-w-3xl rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 sm:p-6">
+    <div className="section-card p-6 animate-fade-in-up animate-delay-100">
       <form action={formAction} className="space-y-5">
         {state.error && <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-600 dark:border-red-900/50 dark:bg-red-900/30 dark:text-red-400">{state.error}</div>}
         <div className="grid gap-5 sm:grid-cols-2">
-          <label className="space-y-2 sm:col-span-2">
-            <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Siswa</span>
-            <select name="studentId" required defaultValue={achievement?.studentId ?? ''} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100">
-              <option value="">Pilih siswa</option>
-              {students.map((student) => (
-                <option key={student.id} value={student.id}>
-                  {student.name} - {student.class?.name ?? 'Tanpa kelas'} ({student.nisn})
-                </option>
-              ))}
-            </select>
+          <label className="space-y-2 sm:col-span-2 relative">
+            <span className="block text-sm font-medium text-primary">Siswa</span>
+            <input type="hidden" name="studentId" value={selectedStudentId} required />
+            <input 
+              type="text" 
+              value={search} 
+              onChange={e => { 
+                setSearch(e.target.value); 
+                setShowDropdown(true); 
+                if (selectedStudentId) setSelectedStudentId(''); 
+              }} 
+              onFocus={() => setShowDropdown(true)}
+              onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
+              placeholder="Ketik nama atau NISN siswa..."
+              className="w-full h-[46px] rounded-xl border border-border bg-surface-alt px-4 py-2.5 text-sm text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+              required={!selectedStudentId}
+            />
+            {showDropdown && (
+               <div className="absolute z-10 w-full mt-1 bg-white border border-border rounded-xl shadow-lg max-h-48 overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-border [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-surface-alt">
+                  {students.filter(s => s.name.toLowerCase().includes(search.toLowerCase()) || s.nisn.includes(search)).map(s => (
+                     <div 
+                       key={s.id} 
+                       className="p-3 hover:bg-surface-alt cursor-pointer border-b border-border last:border-0"
+                       onClick={() => {
+                          setSearch(s.name);
+                          setSelectedStudentId(s.id);
+                          setShowDropdown(false);
+                       }}
+                     >
+                        <p className="font-semibold text-sm text-primary">{s.name}</p>
+                        <p className="text-xs text-text-muted mt-0.5">NISN: {s.nisn} • {s.class?.name ?? 'Tanpa kelas'}</p>
+                     </div>
+                  ))}
+                  {students.filter(s => s.name.toLowerCase().includes(search.toLowerCase()) || s.nisn.includes(search)).length === 0 && (
+                     <div className="p-3 text-sm text-text-muted text-center">Siswa tidak ditemukan</div>
+                  )}
+               </div>
+            )}
           </label>
           <label className="space-y-2 sm:col-span-2">
-            <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Judul Prestasi</span>
-            <input name="title" required defaultValue={achievement?.title ?? ''} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
+            <span className="block text-sm font-medium text-primary">Judul Prestasi</span>
+            <input name="title" required defaultValue={achievement?.title ?? ''} className="w-full h-[46px] rounded-xl border border-border bg-surface-alt px-4 py-2.5 text-sm text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors" />
           </label>
           <label className="space-y-2">
-            <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Tingkat</span>
-            <input name="level" required defaultValue={achievement?.level ?? ''} placeholder="Kota, Provinsi, Nasional" className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
+            <span className="block text-sm font-medium text-primary">Tingkat</span>
+            <input name="level" required defaultValue={achievement?.level ?? ''} placeholder="Kota, Provinsi, Nasional" className="w-full h-[46px] rounded-xl border border-border bg-surface-alt px-4 py-2.5 text-sm text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors" />
           </label>
           <label className="space-y-2">
-            <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Peringkat</span>
-            <input name="rank" defaultValue={achievement?.rank ?? ''} placeholder="Juara 1" className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
+            <span className="block text-sm font-medium text-primary">Peringkat</span>
+            <input name="rank" defaultValue={achievement?.rank ?? ''} placeholder="Juara 1" className="w-full h-[46px] rounded-xl border border-border bg-surface-alt px-4 py-2.5 text-sm text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors" />
           </label>
           <label className="space-y-2">
-            <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Nama Lomba</span>
-            <input name="eventName" required defaultValue={achievement?.eventName ?? ''} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
+            <span className="block text-sm font-medium text-primary">Nama Lomba</span>
+            <input name="eventName" required defaultValue={achievement?.eventName ?? ''} className="w-full h-[46px] rounded-xl border border-border bg-surface-alt px-4 py-2.5 text-sm text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors" />
           </label>
           <label className="space-y-2">
-            <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">URL Gambar</span>
-            <input name="imageUrl" defaultValue={achievement?.imageUrl ?? ''} placeholder="/images/prestasi-juara1-menggambar.jpeg" className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
+            <span className="block text-sm font-medium text-primary">Tanggal</span>
+            <input type="date" name="date" defaultValue={achievement?.date ? achievement.date.toISOString().slice(0, 10) : ''} className="w-full h-[46px] rounded-xl border border-border bg-surface-alt px-4 py-2.5 text-sm text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors" />
           </label>
-          <label className="space-y-2">
-            <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Tanggal</span>
-            <input type="date" name="date" defaultValue={achievement?.date ? achievement.date.toISOString().slice(0, 10) : ''} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
-          </label>
+          
+          <div className="space-y-2 sm:col-span-2">
+            <label className="block text-sm font-medium text-primary">Foto Prestasi</label>
+            <div className="group relative flex min-h-[200px] justify-center overflow-hidden rounded-xl border-2 border-dashed border-border px-4 pb-6 pt-5 sm:px-6 transition-colors hover:border-primary/40">
+              {previewUrl ? (
+                <div className="absolute inset-0 w-full h-full">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <p className="text-white font-medium text-sm flex items-center gap-2">
+                      <UploadCloud className="h-4 w-4" /> Ganti Gambar
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-1 text-center self-center">
+                  <ImageIcon className="mx-auto h-12 w-12 text-text-muted" />
+                  <div className="flex text-sm text-text-secondary justify-center">
+                    <p className="pl-1">Klik untuk memilih file gambar</p>
+                  </div>
+                  <p className="text-xs text-text-muted">PNG, JPG, WEBP hingga 5MB</p>
+                </div>
+              )}
+              <input
+                id="image"
+                name="image"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              />
+            </div>
+          </div>
+          
           <label className="space-y-2 sm:col-span-2">
-            <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Catatan</span>
-            <textarea name="note" rows={3} defaultValue={achievement?.note ?? ''} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
+            <span className="block text-sm font-medium text-primary">Catatan</span>
+            <textarea name="note" rows={3} defaultValue={achievement?.note ?? ''} className="w-full rounded-xl border border-border bg-surface-alt px-4 py-2.5 text-sm text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors" />
           </label>
         </div>
-        <div className="flex flex-col gap-3 border-t border-zinc-200 pt-4 dark:border-zinc-800 sm:flex-row sm:items-center">
-          <button type="submit" disabled={isPending} className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-blue-700 disabled:opacity-50">
+        <div className="flex flex-col gap-3 border-t border-border pt-4 sm:flex-row sm:items-center">
+          <button type="submit" disabled={isPending} className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/30 disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-lg">
             {isPending ? 'Menyimpan...' : achievement ? 'Simpan Perubahan' : 'Tambah Prestasi'}
           </button>
-          <Link href="/admin/prestasi" className="rounded-lg border border-zinc-300 bg-white px-4 py-2 text-center text-sm font-medium text-zinc-700 shadow-sm transition-colors hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700">Batal</Link>
+          <Link href="/admin/prestasi" className="rounded-xl border border-border bg-white px-5 py-2.5 text-center text-sm font-medium text-text-secondary transition-colors hover:bg-surface-alt hover:text-primary">Batal</Link>
         </div>
       </form>
     </div>

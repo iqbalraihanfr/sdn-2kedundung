@@ -28,7 +28,7 @@ export function TeacherForm({ teacher }: TeacherFormProps) {
   }, initialState)
 
   return (
-    <div className="max-w-2xl rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 sm:p-6">
+    <div className="section-card p-6 animate-fade-in-up animate-delay-100">
       <form action={formAction} className="space-y-5">
         {state.error && (
           <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-600 dark:border-red-900/50 dark:bg-red-900/30 dark:text-red-400">
@@ -37,31 +37,31 @@ export function TeacherForm({ teacher }: TeacherFormProps) {
         )}
         <div className="grid gap-5 sm:grid-cols-2">
           <label className="space-y-2 sm:col-span-2">
-            <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Nama Lengkap</span>
-            <input name="name" required defaultValue={teacher?.name ?? ''} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
+            <span className="block text-sm font-medium text-primary">Nama Lengkap</span>
+            <input name="name" required defaultValue={teacher?.name ?? ''} className="w-full h-[46px] rounded-xl border border-border bg-surface-alt px-4 py-2.5 text-sm text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors" />
           </label>
           <label className="space-y-2">
-            <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">NIP</span>
-            <input name="nip" defaultValue={teacher?.nip ?? ''} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
+            <span className="block text-sm font-medium text-primary">NIP</span>
+            <input name="nip" defaultValue={teacher?.nip ?? ''} className="w-full h-[46px] rounded-xl border border-border bg-surface-alt px-4 py-2.5 text-sm text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors" />
           </label>
           <label className="space-y-2">
-            <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Jabatan</span>
-            <input name="position" required defaultValue={teacher?.position ?? ''} placeholder="Guru Kelas, Staff TU, Kepala Sekolah" className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100" />
+            <span className="block text-sm font-medium text-primary">Jabatan</span>
+            <input name="position" required defaultValue={teacher?.position ?? ''} placeholder="Guru Kelas, Staff TU, Kepala Sekolah" className="w-full h-[46px] rounded-xl border border-border bg-surface-alt px-4 py-2.5 text-sm text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors" />
           </label>
           <label className="space-y-2">
-            <span className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Role</span>
-            <select name="role" defaultValue={teacher?.role ?? 'TEACHER'} className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100">
+            <span className="block text-sm font-medium text-primary">Role</span>
+            <select name="role" defaultValue={teacher?.role ?? 'TEACHER'} className="w-full h-[46px] rounded-xl border border-border bg-surface-alt px-4 py-2.5 text-sm text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors">
               <option value="TEACHER">Guru</option>
               <option value="STAFF">Staff</option>
               <option value="ADMIN">Admin</option>
             </select>
           </label>
         </div>
-        <div className="flex flex-col gap-3 border-t border-zinc-200 pt-4 dark:border-zinc-800 sm:flex-row sm:items-center">
-          <button type="submit" disabled={isPending} className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-blue-700 disabled:opacity-50">
+        <div className="flex flex-col gap-3 border-t border-border pt-4 sm:flex-row sm:items-center">
+          <button type="submit" disabled={isPending} className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/30 disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-lg">
             {isPending ? 'Menyimpan...' : teacher ? 'Simpan Perubahan' : 'Tambah Guru/Staff'}
           </button>
-          <Link href="/admin/guru" className="rounded-lg border border-zinc-300 bg-white px-4 py-2 text-center text-sm font-medium text-zinc-700 shadow-sm transition-colors hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700">
+          <Link href="/admin/guru" className="rounded-xl border border-border bg-white px-5 py-2.5 text-center text-sm font-medium text-text-secondary transition-colors hover:bg-surface-alt hover:text-primary">
             Batal
           </Link>
         </div>

@@ -32,7 +32,7 @@ export function LoginForm() {
       }
 
       // Verifikasi whitelist dan set session
-      const res = await setSessionAction(result.user.email)
+      const res = await setSessionAction(result.user.email, result.user.photoURL)
       if (res?.error) {
         throw new Error(res.error)
       }

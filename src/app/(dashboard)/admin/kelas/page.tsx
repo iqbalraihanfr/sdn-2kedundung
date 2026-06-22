@@ -1,5 +1,5 @@
 import { ClassList } from '@/features/classes/components/ClassList'
-import { Plus } from 'lucide-react'
+import { Plus, GraduationCap } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata = {
@@ -9,22 +9,31 @@ export const metadata = {
 
 export default function KelasPage() {
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Data Kelas</h1>
-          <p className="text-zinc-500 dark:text-zinc-400 mt-1">Kelola rombongan belajar SDN Kedundung 2</p>
+    <div className="space-y-6 sm:space-y-8 animate-fade-in-up">
+      <div className="page-hero">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-light to-primary shadow-lg shadow-primary/20">
+              <GraduationCap size={24} className="text-white" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-primary sm:text-4xl">Data Kelas</h1>
+              <p className="mt-1 text-sm text-text-secondary sm:text-base">Kelola rombongan belajar SDN Kedundung 2</p>
+            </div>
+          </div>
+          <Link
+            href="/admin/kelas/tambah"
+            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-secondary to-secondary-light px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-secondary/30 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-secondary/40"
+          >
+            <Plus className="h-5 w-5" />
+            Tambah Kelas
+          </Link>
         </div>
-        <Link
-          href="/admin/kelas/tambah"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-sm transition-colors text-sm font-medium"
-        >
-          <Plus className="w-4 h-4" />
-          Tambah Kelas
-        </Link>
       </div>
 
-      <ClassList />
+      <div className="animate-fade-in-up animate-delay-100">
+        <ClassList />
+      </div>
     </div>
   )
 }

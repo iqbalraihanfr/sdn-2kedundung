@@ -12,7 +12,14 @@ export const gradeQueries = {
     })
   },
 
-  upsertMany: async (records: { studentId: string; subjectId: string; semester: string; score: number }[]) => {
+  findByStudent: (studentId: string) => {
+    return db.grade.findMany({
+      where: { studentId },
+      include: { subject: true },
+    })
+  },
+
+  upsertMany: async (records: { studentId: string; subjectId: string; semester: string; score: number; uh1?: number; uh2?: number; uh3?: number; uas?: number }[]) => {
     return db.$transaction(
       records.map((record) =>
         db.grade.upsert({
@@ -23,7 +30,13 @@ export const gradeQueries = {
               semester: record.semester,
             },
           },
-          update: { score: record.score },
+          update: { 
+            score: record.score,
+            uh1: record.uh1 ?? null,
+            uh2: record.uh2 ?? null,
+            uh3: record.uh3 ?? null,
+            uas: record.uas ?? null,
+          },
           create: record,
         })
       )

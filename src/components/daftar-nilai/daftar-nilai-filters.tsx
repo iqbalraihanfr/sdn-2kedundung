@@ -28,7 +28,7 @@ export function DaftarNilaiFilters({
           <select
             value={kelas}
             onChange={(e) => onKelasChange(e.target.value)}
-            className="w-full appearance-none cursor-pointer rounded-xl border-0 bg-surface-alt py-2.5 pl-9 pr-8 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20"
+            className="w-full h-[46px] appearance-none cursor-pointer rounded-xl border-0 bg-surface-alt py-2.5 pl-9 pr-8 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20"
           >
             {kelasList.map((k) => (
               <option key={k} value={k}>
@@ -41,7 +41,7 @@ export function DaftarNilaiFilters({
           <select
             value={mapel}
             onChange={(e) => onMapelChange(e.target.value)}
-            className="w-full appearance-none cursor-pointer rounded-xl border-0 bg-surface-alt px-4 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20"
+            className="w-full h-[46px] appearance-none cursor-pointer rounded-xl border-0 bg-surface-alt px-4 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20"
           >
             {mapelList.map((m) => (
               <option key={m} value={m}>

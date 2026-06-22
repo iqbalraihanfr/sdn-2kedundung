@@ -14,14 +14,14 @@ export default async function EditMapelPage({ params }: { params: Promise<{ id: 
   if (!subject) notFound()
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 sm:space-y-8 animate-fade-in-up">
       <div>
-        <Link href="/admin/mata-pelajaran" className="mb-4 inline-flex items-center gap-2 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+        <Link href="/admin/mata-pelajaran" className="mb-4 inline-flex items-center gap-2 text-sm font-medium text-text-secondary transition-colors hover:text-primary">
           <ArrowLeft className="h-4 w-4" />
           Kembali ke Mata Pelajaran
         </Link>
-        <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Edit Mata Pelajaran</h1>
-        <p className="mt-1 text-zinc-500 dark:text-zinc-400">Perbarui data {subject.name}.</p>
+        <h1 className="text-3xl font-bold text-primary">Edit Mata Pelajaran</h1>
+        <p className="mt-1 text-sm text-text-secondary">Perbarui data {subject.name}.</p>
       </div>
 
       <SubjectForm subject={subject} />

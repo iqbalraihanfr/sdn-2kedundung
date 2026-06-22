@@ -1,58 +1,82 @@
-import { studentQueries } from '../queries'
+import { studentService } from '../services'
 import Link from 'next/link'
-import { Pencil } from 'lucide-react'
+import { Pencil, Eye } from 'lucide-react'
 import { DeleteStudentButton } from './DeleteStudentButton'
+import { StudentFilters } from './StudentFilters'
+import { Pagination } from '@/components/Pagination'
 
-export async function StudentList() {
-  const students = await studentQueries.findAll()
+export async function StudentList({
+  searchParams,
+}: {
+  searchParams?: { q?: string; sortBy?: string; sortOrder?: string; page?: string }
+}) {
+  const page = Number(searchParams?.page) || 1
+  const limit = 10
+  
+  const { data: students, totalPages } = await studentService.getPaginated({
+    search: searchParams?.q,
+    sortBy: searchParams?.sortBy,
+    sortOrder: searchParams?.sortOrder as 'asc' | 'desc',
+    page,
+    limit,
+  })
 
   return (
-    <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-      <div className="overflow-x-auto">
-        <table className="min-w-[720px] w-full text-left text-sm">
-          <thead className="bg-zinc-50 dark:bg-zinc-900/50 border-b border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400">
-            <tr>
-              <th className="py-3 px-4 font-medium">NISN</th>
-              <th className="py-3 px-4 font-medium">Nama Siswa</th>
-              <th className="py-3 px-4 font-medium">Kelas</th>
-              <th className="py-3 px-4 font-medium">Tgl Dibuat</th>
-              <th className="py-3 px-4 text-right font-medium">Aksi</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800">
-            {students.length === 0 ? (
+    <div>
+      <StudentFilters />
+      
+      <div className="section-card overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="min-w-[720px] w-full text-left text-sm">
+            <thead className="bg-surface-alt text-text-secondary border-b border-border">
               <tr>
-                <td colSpan={5} className="py-8 text-center text-zinc-500 dark:text-zinc-400">
-                  Belum ada data siswa
-                </td>
+                <th className="py-4 px-6 font-semibold">NISN</th>
+                <th className="py-4 px-6 font-semibold">Nama Siswa</th>
+                <th className="py-4 px-6 font-semibold">Kelas</th>
+                <th className="py-4 px-6 font-semibold">Tgl Dibuat</th>
+                <th className="py-4 px-6 text-right font-semibold">Aksi</th>
               </tr>
-            ) : (
-              students.map((student) => (
-                <tr key={student.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
-                  <td className="py-3 px-4 font-medium text-zinc-900 dark:text-zinc-100">{student.nisn}</td>
-                  <td className="py-3 px-4 text-zinc-700 dark:text-zinc-300">{student.name}</td>
-                  <td className="py-3 px-4">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
-                      {student.class?.name || 'Belum ada kelas'}
-                    </span>
-                  </td>
-                  <td className="py-3 px-4 text-zinc-500 dark:text-zinc-400">
-                    {new Date(student.createdAt).toLocaleDateString('id-ID')}
-                  </td>
-                  <td className="py-3 px-4 text-right">
-                    <div className="flex justify-end gap-1">
-                      <Link href={`/admin/data-siswa/${student.id}/edit`} className="inline-flex items-center justify-center rounded-md p-2 text-blue-600 transition-colors hover:bg-blue-50 hover:text-blue-800 dark:text-blue-400 dark:hover:bg-blue-500/10">
-                        <Pencil className="h-4 w-4" />
-                      </Link>
-                      <DeleteStudentButton id={student.id} name={student.name} />
-                    </div>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {students.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="py-8 text-center text-text-muted">
+                    {searchParams?.q ? 'Tidak ada siswa yang sesuai dengan pencarian' : 'Belum ada data siswa'}
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                students.map((student) => (
+                  <tr key={student.id} className="hover:bg-surface-alt/50 transition-colors">
+                    <td className="py-4 px-6 font-medium text-primary">{student.nisn}</td>
+                    <td className="py-4 px-6 text-text-secondary">{student.name}</td>
+                    <td className="py-4 px-6">
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                        {student.class?.name || 'Belum ada kelas'}
+                      </span>
+                    </td>
+                    <td className="py-4 px-6 text-text-secondary">
+                      {new Date(student.createdAt).toLocaleDateString('id-ID')}
+                    </td>
+                    <td className="py-4 px-6 text-right">
+                      <div className="flex justify-end gap-1">
+                        <Link href={`/admin/data-siswa/${student.id}`} className="inline-flex items-center justify-center rounded-md p-2 text-primary transition-colors hover:bg-primary/10" title="Detail Siswa">
+                          <Eye className="h-4 w-4" />
+                        </Link>
+                        <Link href={`/admin/data-siswa/${student.id}/edit`} className="inline-flex items-center justify-center rounded-md p-2 text-primary transition-colors hover:bg-primary/10" title="Edit Siswa">
+                          <Pencil className="h-4 w-4" />
+                        </Link>
+                        <DeleteStudentButton id={student.id} name={student.name} />
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
+
+      <Pagination currentPage={page} totalPages={totalPages} />
     </div>
   )
 }

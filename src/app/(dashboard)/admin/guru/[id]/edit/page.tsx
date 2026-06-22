@@ -14,14 +14,14 @@ export default async function EditGuruPage({ params }: { params: Promise<{ id: s
   if (!teacher) notFound()
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 sm:space-y-8 animate-fade-in-up">
       <div>
-        <Link href="/admin/guru" className="mb-4 inline-flex items-center gap-2 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+        <Link href="/admin/guru" className="mb-4 inline-flex items-center gap-2 text-sm font-medium text-text-secondary transition-colors hover:text-primary">
           <ArrowLeft className="h-4 w-4" />
           Kembali ke Data Guru
         </Link>
-        <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Edit Guru & Staff</h1>
-        <p className="mt-1 text-zinc-500 dark:text-zinc-400">Perbarui informasi {teacher.name}.</p>
+        <h1 className="text-3xl font-bold text-primary">Edit Guru & Staff</h1>
+        <p className="mt-1 text-sm text-text-secondary">Perbarui informasi {teacher.name}.</p>
       </div>
 
       <TeacherForm teacher={teacher} />

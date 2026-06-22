@@ -11,17 +11,19 @@ export default async function ProfilPage() {
 
   return (
     <div className="max-w-3xl space-y-5 sm:space-y-6">
-      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-        <div>
-          <h1 className="flex items-center gap-2 text-xl font-bold text-zinc-900 dark:text-zinc-100 sm:text-2xl">
-            <School className="h-6 w-6 text-brand-500" />
-            Profil Sekolah
-          </h1>
-          <p className="text-zinc-500 dark:text-zinc-400 mt-1">Ubah informasi dasar SDN Kedundung 2.</p>
+      <div className="page-hero animate-fade-in-up">
+        <div className="flex items-center gap-3">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/20">
+            <School size={24} className="text-white" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-primary sm:text-4xl">Profil Sekolah</h1>
+            <p className="mt-1 text-sm text-text-secondary sm:text-base">Ubah informasi dasar SDN Kedundung 2.</p>
+          </div>
         </div>
       </div>
 
-      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-sm">
+      <div className="section-card overflow-hidden animate-fade-in-up animate-delay-100">
         <SchoolProfileForm initialData={profile} />
       </div>
     </div>
