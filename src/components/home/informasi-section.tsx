@@ -1,5 +1,7 @@
-import { Bell, Calendar } from "lucide-react";
+import { Bell, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { announcementService } from "@/features/announcements/services";
+import { AnnouncementList } from "./announcement-list";
 
 export async function InformasiSection() {
   const announcements = await announcementService.getPublished(6).catch((error) => {
@@ -33,22 +35,22 @@ export async function InformasiSection() {
             </p>
           </div>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {announcements.map((item) => (
-              <div key={item.id} className="rounded-2xl border border-border bg-white p-6 shadow-sm transition-all hover:shadow-md">
-                <div className="mb-4 flex items-center text-sm text-text-secondary">
-                  <Calendar className="mr-2 h-4 w-4 text-primary" />
-                  {new Date(item.createdAt).toLocaleDateString("id-ID", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric"
-                  })}
-                </div>
-                <h3 className="mb-3 text-xl font-bold text-primary">{item.title}</h3>
-                <p className="text-text-secondary line-clamp-3">{item.content}</p>
-              </div>
-            ))}
-          </div>
+          <>
+            <AnnouncementList announcements={announcements} />
+
+            <div className="mt-10 flex justify-center">
+              <Link
+                href="/informasi"
+                className="group inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-semibold !text-white shadow-lg shadow-primary/20 transition-all duration-200 hover:bg-primary-light hover:shadow-xl hover:shadow-primary/30"
+              >
+                Lihat Semua Informasi
+                <ArrowRight
+                  size={16}
+                  className="transition-transform group-hover:translate-x-0.5"
+                />
+              </Link>
+            </div>
+          </>
         )}
       </div>
     </section>

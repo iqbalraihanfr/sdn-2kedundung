@@ -193,3 +193,17 @@ body {
 .animate-pulse-soft {
   animation: pulseSoft 3s ease-in-out infinite;
 }
+
+/* Custom styles for links inside announcements */
+.announcement-link {
+  color: #2563eb !important;
+  text-decoration: underline !important;
+  font-weight: 600 !important;
+  transition: color 0.2s ease-in-out;
+}
+
+.announcement-link:hover {
+  color: #1d4ed8 !important;
+  text-decoration: underline !important;
+}
+

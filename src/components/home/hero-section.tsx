@@ -4,7 +4,7 @@ import {
   ArrowRight,
   ChevronDown,
   GraduationCap,
-  Info,
+  MessageSquare,
   Star,
 } from "lucide-react";
 
@@ -77,11 +77,13 @@ export function HeroSection() {
               />
             </Link>
             <Link
-              href="/#visi-misi"
+              href="https://bit.ly/KotakSaranSDNKedundung2"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3.5 font-medium !text-white backdrop-blur-sm transition-all hover:bg-white/20 sm:justify-start sm:px-6"
             >
-              <Info size={18} />
-              Tentang Sekolah
+              <MessageSquare size={18} />
+              Konsultasi & Pengaduan
             </Link>
           </div>
 

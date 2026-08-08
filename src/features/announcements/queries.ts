@@ -9,12 +9,12 @@ export const announcementQueries = {
     })
   },
 
-  findPublished: (take = 6) => {
+  findPublished: (take?: number) => {
     return db.announcement.findMany({
       where: { status: 'PUBLISHED' },
       orderBy: { createdAt: 'desc' },
       include: { author: true },
-      take,
+      ...(take !== undefined ? { take } : {}),
     })
   },
 

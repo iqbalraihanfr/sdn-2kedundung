@@ -51,7 +51,7 @@ const navItems: NavItem[] = [
       { href: "/tata-tertib", label: "Tata Tertib", icon: BookOpen },
     ],
   },
-  { href: "/#informasi", label: "Informasi", icon: Bell },
+  { href: "/informasi", label: "Informasi", icon: Bell },
   { href: "/#kontak", label: "Kontak", icon: Phone },
 ];
 
@@ -195,6 +195,23 @@ export function Navbar() {
                 </Link>
               );
             })}
+
+            {/* Curhat Ning Ita CTA */}
+            <Link
+              href="https://curhatningita.lapor.go.id/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 relative h-10 w-10 shrink-0 overflow-hidden transition-transform duration-300 hover:scale-105 rounded-xl border border-border bg-white p-1 flex items-center justify-center shadow-sm hover:shadow"
+            >
+              <Image
+                src="/images/curhatningita.png"
+                alt="Curhat Ning Ita"
+                width={32}
+                height={32}
+                priority
+                className="object-contain"
+              />
+            </Link>
           </div>
 
           <button
@@ -275,6 +292,26 @@ export function Navbar() {
                 </Link>
               );
             })}
+
+            {/* Curhat Ning Ita Mobile CTA */}
+            <div className="border-t border-border mt-3 pt-3 flex justify-center pb-2">
+              <Link
+                href="https://curhatningita.lapor.go.id/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsOpen(false)}
+                className="relative h-12 w-12 shrink-0 overflow-hidden transition-transform duration-300 hover:scale-105 rounded-xl border border-border bg-white p-1.5 shadow-sm flex items-center justify-center"
+              >
+                <Image
+                  src="/images/curhatningita.png"
+                  alt="Curhat Ning Ita"
+                  width={36}
+                  height={36}
+                  priority
+                  className="object-contain"
+                />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
