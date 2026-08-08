@@ -30,4 +30,9 @@ export const announcementService = {
     await this.getById(id)
     return announcementQueries.delete(id)
   },
+
+  async publish(id: string) {
+    await this.getById(id)
+    return announcementQueries.publish(id)
+  },
 }

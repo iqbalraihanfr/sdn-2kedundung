@@ -1,5 +1,6 @@
 import { announcementService } from '@/features/announcements/services'
 import { DeleteAnnouncementButton } from '@/features/announcements/components/DeleteAnnouncementButton'
+import { PublishAnnouncementButton } from '@/features/announcements/components/PublishAnnouncementButton'
 import { Megaphone, Pencil, Plus } from 'lucide-react'
 import Link from 'next/link'
 
@@ -64,6 +65,9 @@ export default async function PengumumanPage() {
                     <td className="px-6 py-4 text-text-secondary whitespace-nowrap">{new Date(item.createdAt).toLocaleDateString('id-ID')}</td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex justify-end gap-1">
+                        {item.status === 'DRAFT' && (
+                          <PublishAnnouncementButton id={item.id} title={item.title} />
+                        )}
                         <Link href={`/admin/pengumuman/${item.id}/edit`} className="rounded-md p-2 text-primary transition-colors hover:bg-primary/10">
                           <Pencil className="h-4 w-4" />
                         </Link>

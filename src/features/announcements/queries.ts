@@ -43,4 +43,11 @@ export const announcementQueries = {
       where: { id },
     })
   },
+
+  publish: (id: string) => {
+    return db.announcement.update({
+      where: { id },
+      data: { status: 'PUBLISHED' },
+    })
+  },
 }

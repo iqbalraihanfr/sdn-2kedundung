@@ -94,22 +94,7 @@ export function AnnouncementForm({
             />
           </div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="space-y-2">
-              <label htmlFor="status" className="block text-sm font-medium text-primary">
-                Status
-              </label>
-              <select
-                id="status"
-                name="status"
-                defaultValue={announcement?.status ?? 'PUBLISHED'}
-                className="w-full h-[46px] rounded-xl border border-border bg-surface-alt px-4 py-2.5 text-sm text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
-              >
-                <option value="PUBLISHED">Published</option>
-                <option value="DRAFT">Draft</option>
-              </select>
-            </div>
-            <div className="space-y-2">
+          <div className="space-y-2">
               <label className="block text-sm font-medium text-primary">
                 Thumbnail Pengumuman
               </label>
@@ -143,7 +128,6 @@ export function AnnouncementForm({
                 />
               </div>
             </div>
-          </div>
 
           <div className="flex flex-col border-t border-border pt-4 sm:flex-row sm:justify-end">
             <button

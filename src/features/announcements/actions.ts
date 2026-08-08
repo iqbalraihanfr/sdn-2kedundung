@@ -80,3 +80,17 @@ export async function deleteAnnouncementAction(id: string) {
     return { error: err instanceof Error ? err.message : 'Terjadi kesalahan' }
   }
 }
+
+export async function publishAnnouncementAction(id: string) {
+  try {
+    await requireAdminEmail()
+    await announcementService.publish(id)
+    revalidatePath('/admin/pengumuman')
+    revalidatePath('/')
+    revalidatePath('/informasi')
+    return { success: true }
+  } catch (err) {
+    return { error: err instanceof Error ? err.message : 'Terjadi kesalahan' }
+  }
+}
+
